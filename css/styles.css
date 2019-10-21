@@ -1,0 +1,31 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+body {
+  font-family: Nunito;
+}
+
+input {
+  width: 200px;
+  height: 25px;
+  border-radius: 4px;
+  margin-bottom: 5px;
+  font-family: Nunito;
+}
+.form-container{
+  border: 1px solid grey;
+  width: 450px;
+  padding: 20px;
+}
+
+.sign {
+  text-align: center;
+  font-family: Nunito;
+}
+
+#sign_up {
+  background-color: #F6AD7B;
+  color: #234099;
+  font-family: Nunito;
+}
