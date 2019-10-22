@@ -19,6 +19,10 @@ input {
   padding: 20px;
 }
 
+input {
+  padding-left: 0px;
+}
+
 .sign {
   text-align: center;
   font-family: Nunito;
