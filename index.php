@@ -1,8 +1,14 @@
 <?php
+  /*
   $emailError = "";
   $nameError = "";
   $usernameError = "";
   $passwordError = "";
+
+  function test_ user_input ($data) {
+    return $data;
+  }
+
   if (isset($_POST['submit'])) {
     if (empty($_POST['user-email'])) {
       $emailError = 'Email is required';
@@ -28,10 +34,7 @@
     }else {
       $Password = test_user_input($_POST['passwd']);
     }
-  }
-  function test_user_input ($data) {
-    return $data;
-  }
+  }*/
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
