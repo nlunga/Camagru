@@ -4,6 +4,7 @@
 }
 body {
   font-family: Nunito;
+  background-color: purple;
 }
 
 input {
@@ -29,7 +30,7 @@ input {
 }
 
 #sign_up {
-  background-color: #F6AD7B;
+  background-color: #979695;
   color: #234099;
   font-family: Nunito;
 }
