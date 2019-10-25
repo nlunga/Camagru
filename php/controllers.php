@@ -6,11 +6,11 @@
   $passwordError = "";
   $ConfirmUserPasswordError = "";
   if (isset($_POST['submit'])) {
-    // $Email = $_POST['user-email'];
-    // $Name = $_POST['fullname'];
-    // $UserName = $_POST['username'];
-    // $PasswordUserInput = $_POST['passwd'];
-    // $ConfirmUserPassword = $_POST['confPasswd'];
+    $Email = $_POST['user-email'];
+    $Name = $_POST['fullname'];
+    $UserName = $_POST['username'];
+    $PasswordUserInput = $_POST['passwd'];
+    $ConfirmUserPassword = $_POST['confPasswd'];
     //$HashedPassword = password_hash($PasswordUserInput, PASSWORD_DEFAULT);
 
     if (isset($_POST['submit'])) {
@@ -47,6 +47,19 @@
       }
       email_validation($_POST['user-email']);
       username_validation($_POST['username']);
+      if (count($emailError) === 0 && count($usernameError) === 0 && count($nameError) === 0 && count($passwordError) === 0 && count($ConfirmUserPasswordError) === 0) {
+        $HashedPassword = password_hash($_POST['passwd'], PASSWORD_DEFAULT);
+        $token = bin2hex(random_bytes(50));
+        $verified = false;
+
+        $stm = $handle->prepare("INSERT INTO new_users (email, fullname, username, password, verified, token) VALUES (:email, :fullname, :username, :password, :verified, :token)");
+        $stm->bindParam(':email', $emailInput);
+        $stm->bindParam(':fullname', $Name);
+        $stm->bindParam(':username', $UserName);
+        $stm->bindParam(':password', $HashedPassword);
+        $stm->bindParam(':verified', $verified);
+        $stm->bindParam(':token', $token);
+      }
     }
     function test_ user_input ($data) {
       return $data;
@@ -65,47 +78,54 @@
       if ($userCount > 0) {
         $emailError = 'Email already exists!!! Please enter a new email.';
       }
-
-      if ($user) {
-        echo "Email already exists please enter another email.";
-      }else {
+      //
+      // if ($user) {
+      //   echo "Email already exists please enter another email.";
+      // }else {
         $stm = $handle->prepare("INSERT INTO new_users (email, fullname, username, password) VALUES (:email, :fullname, :username, :password)");
         $stm->bindParam(':email', $emailInput);
         $stm->bindParam(':fullname', $Name);
         $stm->bindParam(':username', $UserName);
         $stm->bindParam(':password', $HashedPassword);
-
-        $stm->execute();
-        echo "Registration Successful...";
-        $stm->close();
-
-      }
-      $stmt->close();
-      $handle->close();
+      //
+      //   $stm->execute();
+      //   echo "Registration Successful...";
+      //   $stm->close();
+      //
+      // }
+      // $stmt->close();
+      // $handle->close();
     }
 
     function username_validation($usernameInput)
     {
       $stmt = $handle->prepare("SELECT * FROM new_users WHERE username=? LIMIT 1");
-      $stmt->execute([$usernameInput]);
-      $user = $stmt->fetch();
+      // $stmt->execute([$usernameInput]);
+      // $user = $stmt->fetch();
+      $stmt->bindParam(':username', $usernameInput);
+      $stmt->execute();
+      $result = $stmt->fetch();
+      $userCount = $result->num_rows;
 
-      if ($user) {
-        echo "Username already exists please enter another username.";
-      }else {
-        $stm = $handle->prepare("INSERT INTO new_users (email, fullname, username, password) VALUES (:email, :fullname, :username, :password)");
-        $stm->bindParam(':email', $Email);
-        $stm->bindParam(':fullname', $Name);
-        $stm->bindParam(':username', $usernameInput);
-        $stm->bindParam(':password', $HashedPassword);
+      if ($userCount > 0) {
+        $usernameError = 'Username already exists!!! Please enter a new username.';
 
-        $stm->execute();
-        echo "Registration Successful...";
-        $stm->close();
-
-      }
-      $stmt->close();
-      $handle->close();
+      // if ($user) {
+      //   echo "Username already exists please enter another username.";
+      // }else {
+      //   $stm = $handle->prepare("INSERT INTO new_users (email, fullname, username, password) VALUES (:email, :fullname, :username, :password)");
+      //   $stm->bindParam(':email', $Email);
+      //   $stm->bindParam(':fullname', $Name);
+      //   $stm->bindParam(':username', $usernameInput);
+      //   $stm->bindParam(':password', $HashedPassword);
+      //
+      //   $stm->execute();
+      //   echo "Registration Successful...";
+      //   $stm->close();
+      //
+      // }
+      // $stmt->close();
+      // $handle->close();
     }
   }
 ?>
