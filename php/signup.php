@@ -6,7 +6,7 @@ require_once("controllers.php");
   $usernameError = "";
   $passwordError = "";
 
-  
+
   */
 ?>
 <!DOCTYPE html>
@@ -22,11 +22,11 @@ require_once("controllers.php");
         <form class="myForm" action="signup.php" method="post">
           <h3 class="reg">Register</h3>
           <!--<div class="alert"></div>-->
-          <input class="focus-control" type="email" name="user-email" id="input-mail" value="<?php echo $emailError; ?>" oninput="checkInput()" placeholder="Email"> <br>
-          <input class="focus-control" type="text" name="fullname" id="input-name" value="<?php echo $nameError; ?>" oninput="checkInput()" placeholder="Full Name"> <br>
-          <input class="focus-control" type="text" name="username" id="input-username" value="<?php echo $usernameError; ?>" oninput="checkInput()" placeholder="Username"> <br>
-          <input class="focus-control" type="password" name="passwd" id="input-password" value="<?php echo $passwordError; ?>" oninput="checkInput()" placeholder="Password"> <br>
-            <input class="focus-control" type="password" name="confPasswd" id="input-confpassword" value="<?php echo $passwordError; ?>" oninput="checkInput()" placeholder="Confirm Password"> <br>
+          <input class="focus-control" type="email" name="user-email" id="input-mail" value="<?php echo $Email; ?>" oninput="checkInput()" placeholder="Email"> <br>
+          <input class="focus-control" type="text" name="fullname" id="input-name" value="<?php echo $Name; ?>" oninput="checkInput()" placeholder="Full Name"> <br>
+          <input class="focus-control" type="text" name="username" id="input-username" value="<?php echo $UserName; ?>" oninput="checkInput()" placeholder="Username"> <br>
+          <input class="focus-control" type="password" name="passwd" id="input-password" value="<?php echo $PasswordUserInput; ?>" oninput="checkInput()" placeholder="Password"> <br>
+            <input class="focus-control" type="password" name="confPasswd" id="input-confpassword" value="<?php echo $ConfirmUserPassword; ?>" oninput="checkInput()" placeholder="Confirm Password"> <br>
           <input type="submit" id="sign_up" class="submit-button" name="submit" value="Sign up" disabled>
         </form>
         <p class="sign">By signing up, you agree to our <br><strong>Terms</strong> , <strong>Data Policy</strong> and <strong>Cookies</strong> <br>Policy .</p>

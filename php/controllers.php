@@ -1,16 +1,21 @@
 <?php
+  session_start();
+
   require 'connect.php';
   $emailError = "";
   $nameError = "";
   $usernameError = "";
   $passwordError = "";
   $ConfirmUserPasswordError = "";
+
+  $Email = $_POST['user-email'];
+  $Name = $_POST['fullname'];
+  $UserName = $_POST['username'];
+  $PasswordUserInput = $_POST['passwd'];
+  $ConfirmUserPassword = $_POST['confPasswd'];
+  
   if (isset($_POST['submit'])) {
-    $Email = $_POST['user-email'];
-    $Name = $_POST['fullname'];
-    $UserName = $_POST['username'];
-    $PasswordUserInput = $_POST['passwd'];
-    $ConfirmUserPassword = $_POST['confPasswd'];
+
     //$HashedPassword = password_hash($PasswordUserInput, PASSWORD_DEFAULT);
 
     if (isset($_POST['submit'])) {
@@ -45,20 +50,32 @@
       }else {
         $ConfirmUserPassword = test_user_input($_POST['confPasswd']);
       }
-      email_validation($_POST['user-email']);
-      username_validation($_POST['username']);
+      email_validation($Email);
+      username_validation($UserName);
       if (count($emailError) === 0 && count($usernameError) === 0 && count($nameError) === 0 && count($passwordError) === 0 && count($ConfirmUserPasswordError) === 0) {
         $HashedPassword = password_hash($_POST['passwd'], PASSWORD_DEFAULT);
         $token = bin2hex(random_bytes(50));
         $verified = false;
 
-        $stm = $handle->prepare("INSERT INTO new_users (email, fullname, username, password, verified, token) VALUES (:email, :fullname, :username, :password, :verified, :token)");
-        $stm->bindParam(':email', $emailInput);
-        $stm->bindParam(':fullname', $Name);
-        $stm->bindParam(':username', $UserName);
-        $stm->bindParam(':password', $HashedPassword);
-        $stm->bindParam(':verified', $verified);
-        $stm->bindParam(':token', $token);
+        $stmt = $handle->prepare("INSERT INTO new_users (email, fullname, username, password, verified, token) VALUES (:email, :fullname, :username, :password, :verified, :token)");
+        $stmt->bindParam(':email', $emailInput);
+        $stmt->bindParam(':fullname', $Name);
+        $stmt->bindParam(':username', $UserName);
+        $stmt->bindParam(':password', $HashedPassword);
+        $stmt->bindParam(':verified', $verified);
+        $stmt->bindParam(':token', $token);
+
+        if ($stmt->execute()) {
+          $user_id = $stmt->insert_id;
+          $_SESSION['id'] = $user_id;
+          $_SESSION['username'] = $UserName;
+          $_SESSION['user-email'] = $Email;
+          $_SESSION['verified'] = $verified;
+          header(location: index.php);
+          exit();
+        }else {
+          echo "Database error: failed to register";
+        }
       }
     }
     function test_ user_input ($data) {
@@ -82,11 +99,11 @@
       // if ($user) {
       //   echo "Email already exists please enter another email.";
       // }else {
-        $stm = $handle->prepare("INSERT INTO new_users (email, fullname, username, password) VALUES (:email, :fullname, :username, :password)");
-        $stm->bindParam(':email', $emailInput);
-        $stm->bindParam(':fullname', $Name);
-        $stm->bindParam(':username', $UserName);
-        $stm->bindParam(':password', $HashedPassword);
+        // $stm = $handle->prepare("INSERT INTO new_users (email, fullname, username, password) VALUES (:email, :fullname, :username, :password)");
+        // $stm->bindParam(':email', $emailInput);
+        // $stm->bindParam(':fullname', $Name);
+        // $stm->bindParam(':username', $UserName);
+        // $stm->bindParam(':password', $HashedPassword);
       //
       //   $stm->execute();
       //   echo "Registration Successful...";

@@ -7,7 +7,7 @@ var button = document.querySelector(".submit-button");
 var regEx = /\S+@\S+\.\S+/;
 
 function checkInput(){
-  if (regEx.test(inputMail.value) && inputName.value.trim() !== "" && inputUsername.value.trim() !== "" && inputPassword.value.trim() !== "" && confirmInputPassword.value.trim() !== "") {
+  if (regEx.test(inputMail.value) && inputName.value.trim() !== "" && inputUsername.value.trim() !== "" && inputPassword.value.trim() !== ""/* && confirmInputPassword.value.trim() !== ""*/) {
     button.style.backgroundColor = "#fa923f";
     button.disabled = false;
   }else {
