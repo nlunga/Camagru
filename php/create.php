@@ -20,7 +20,8 @@
     //if ($user['username'] == $UserName){
     //    echo "User name already exists please enter another user name";
     //}
-  }else {
+  }
+  else {
     $stm = $handle->prepare("INSERT INTO new_users (email, fullname, username, password) VALUES (:email, :fullname, :username, :password)");
     $stm->bindParam(':email', $Email);
     $stm->bindParam(':fullname', $Name);

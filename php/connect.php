@@ -1,5 +1,5 @@
 <?php
-
+  include("../config/database.php");
   try {
     $handle = new PDO("mysql:host=$server;dbname=$db", "$user", "$pass");
     $handle->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

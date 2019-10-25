@@ -1,18 +1,34 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css?family=Nunito&display=swap');
+
 * {
   padding: 0;
   margin: 0;
 }
 body {
-  font-family: Nunito;
+  font-family: 'Nunito', sans-serif;
   background-color: purple;
 }
 
+.form-container {
+  margin: 50px auto 50px;
+}
+
+.form-container.login {
+  margin-top: 100px;
+}
+
+.reg {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.1em;
+    padding-bottom: 5px;
+}
 input {
   width: 200px;
   height: 25px;
   border-radius: 4px;
   margin-bottom: 5px;
-  font-family: Nunito;
+  font-family: 'Nunito', sans-serif;
 }
 .form-container{
   border: 1px solid grey;
@@ -26,11 +42,15 @@ input {
 
 .sign {
   text-align: center;
-  font-family: Nunito;
+  font-family: 'Nunito', sans-serif;
 }
 
 #sign_up {
   background-color: #979695;
   color: #234099;
-  font-family: Nunito;
+  font-family: 'Nunito', sans-serif;
+}
+
+.focus-control:focus {
+  box-shadow: none;
 }
