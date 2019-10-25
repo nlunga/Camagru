@@ -1,41 +1,13 @@
 <?php
-//require_once("create.php");
+require_once("controllers.php");
   /*
   $emailError = "";
   $nameError = "";
   $usernameError = "";
   $passwordError = "";
 
-  function test_ user_input ($data) {
-    return $data;
-  }
-
-  if (isset($_POST['submit'])) {
-    if (empty($_POST['user-email'])) {
-      $emailError = 'Email is required';
-    }else {
-      $Email = test_user_input($_POST['user-email']);
-    }
-
-    if (empty($_POST['fullname'])) {
-      $nameError = 'Full Name is required';
-    }else {
-      $Name = test_user_input($_POST['fullname']);
-      if (!preg_match("/^[A-Za-z. ]*$/", $Name)) {
-        $nameError = "Only letters and white spaces are allowed";
-      }
-    }
-    if (empty($_POST['username'])) {
-      $usernameError = 'Username is required';
-    }else {
-      $UserName = test_user_input($_POST['username']);
-    }
-    if (empty($_POST['passwd'])) {
-      $passwordError = 'Password is required';
-    }else {
-      $Password = test_user_input($_POST['passwd']);
-    }
-  }*/
+  
+  */
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -50,10 +22,11 @@
         <form class="myForm" action="signup.php" method="post">
           <h3 class="reg">Register</h3>
           <!--<div class="alert"></div>-->
-          <input class="focus-control" type="email" name="user-email" id="input-mail" value="" oninput="checkInput()" placeholder="Email"> <?php echo $emailError; ?><br>
-          <input class="focus-control" type="text" name="fullname" id="input-name" value="" oninput="checkInput()" placeholder="Full Name"> <?php echo $nameError; ?><br>
-          <input class="focus-control" type="text" name="username" id="input-username" value="" oninput="checkInput()" placeholder="Username"> <?php echo $usernameError; ?><br>
-          <input class="focus-control" type="password" name="passwd" id="input-password" value="" oninput="checkInput()" placeholder="Password"> <?php echo $passwordError; ?><br>
+          <input class="focus-control" type="email" name="user-email" id="input-mail" value="<?php echo $emailError; ?>" oninput="checkInput()" placeholder="Email"> <br>
+          <input class="focus-control" type="text" name="fullname" id="input-name" value="<?php echo $nameError; ?>" oninput="checkInput()" placeholder="Full Name"> <br>
+          <input class="focus-control" type="text" name="username" id="input-username" value="<?php echo $usernameError; ?>" oninput="checkInput()" placeholder="Username"> <br>
+          <input class="focus-control" type="password" name="passwd" id="input-password" value="<?php echo $passwordError; ?>" oninput="checkInput()" placeholder="Password"> <br>
+            <input class="focus-control" type="password" name="confPasswd" id="input-confpassword" value="<?php echo $passwordError; ?>" oninput="checkInput()" placeholder="Confirm Password"> <br>
           <input type="submit" id="sign_up" class="submit-button" name="submit" value="Sign up" disabled>
         </form>
         <p class="sign">By signing up, you agree to our <br><strong>Terms</strong> , <strong>Data Policy</strong> and <strong>Cookies</strong> <br>Policy .</p>
