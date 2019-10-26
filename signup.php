@@ -1,7 +1,5 @@
 <?php
-  if (isset($_POST['submit'])) {
-    header("location: connect.php");
-  }
+  require 'controls.php';
 ?>
 
 <!DOCTYPE html>

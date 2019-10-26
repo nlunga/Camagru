@@ -75,7 +75,7 @@
           echo "Database error: failed to register";
         }
     }
-    function test_ user_input ($data) {
+    function test_user_input ($data) {
       return $data;
     }
 

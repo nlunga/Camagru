@@ -1,5 +1,5 @@
 <?php
-  //require_once("controllers.php");
+  require_once("controllers.php");
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
