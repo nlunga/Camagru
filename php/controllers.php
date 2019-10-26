@@ -13,12 +13,10 @@
   $UserName = $_POST['username'];
   $PasswordUserInput = $_POST['passwd'];
   $ConfirmUserPassword = $_POST['confPasswd'];
-  
+
   if (isset($_POST['submit'])) {
 
     //$HashedPassword = password_hash($PasswordUserInput, PASSWORD_DEFAULT);
-
-    if (isset($_POST['submit'])) {
       if (empty($_POST['user-email'])) {
         $emailError = 'Email is required';
       }else {
@@ -76,7 +74,6 @@
         }else {
           echo "Database error: failed to register";
         }
-      }
     }
     function test_ user_input ($data) {
       return $data;
