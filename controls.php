@@ -42,8 +42,36 @@
       $error['ConfPasswordError'] = "Password does no match";
     }
 
-    $emailQuery = "SELECT * FROM user_data WHERE email=? LIMIT 1";
-    $usernameQuery = "SELECT * FROM user_data WHERE username=? LIMIT 1";
+    function FunctionName($daemail)
+    {
+      $emailQuery = "SELECT * FROM new_users WHERE email=? LIMIT 1";
+      $emailstmt = $handle->prepare($emailQuery);
+      $emailstmt = bindParam(':email', $daemail);
+      $emailstmt->execute();
+      $emailResult = $emailstmt->fetch();
+      $emailCount = $emailResult->rowCount();
+
+      if ($emailCount > 0) {
+        $error['EmailError'] = "Email already exists";
+      }
+    }
+
+    function FunctionName($dausername)
+    {
+      $usernameQuery = "SELECT * FROM new_users WHERE username=? LIMIT 1";
+      $usernamestmt = $handle->prepare($usernameQuery);
+      $usernamestmt = bindParam(':username', $username);
+      $usernamestmt->execute();
+      $usernameResult= $usernamestmt->fetch();
+      $usernameCount = $usernameResult->rowCount();
+      
+      if ($usernameCount > 0) {
+        $error['UserNameError'] = "Username already exists";
+      }
+    }
+/*
+    $emailQuery = "SELECT * FROM new_users WHERE email=? LIMIT 1";
+    $usernameQuery = "SELECT * FROM new_users WHERE username=? LIMIT 1";
     $emailstmt = $handle->prepare($emailQuery);
     $usernamestmt = $handle->prepare($usernameQuery);
     $emailstmt = bindParam(':email', $userEmail);
@@ -67,13 +95,12 @@
       $token = bin2hex(random_bytes(50));
       $verified = false;
 
-
-      $stm = $handle->prepare("INSERT INTO new_users (username, email, password, token, verified) VALUES (:username, :email, :password, :token, :verified)");
+      $stm = $handle->prepare("INSERT INTO new_users (username, email, password, verified, token) VALUES (:username, :email, :password, :verified, :token)");
       $stm->bindParam(':username', $username);
       $stm->bindParam(':email', $userEmail);
       $stm->bindParam(':password', $HashedPassword);
-      $stm->bindParam(':token', $token);
       $stm->bindParam(':verified', $verified);
+      $stm->bindParam(':token', $token);
 
       if ($stm->execute()) {
         $user_id = $handle->lastInsertId();
@@ -88,7 +115,7 @@
         exit();
       }else {
         $error['db_error'] = "Database error: failed to register";
-      }
+      }*/
     }
-  }
+  //}
 ?>
