@@ -41,34 +41,35 @@
       //$ConfPasswordError = "Invalid password";
       $error['ConfPasswordError'] = "Password does no match";
     }
+    /*
     if (count($error) === 0) {
-      // $HashedPassword = password_hash($password, PASSWORD_DEFAULT);
-      // $token = bin2hex(random_bytes(50));
-      // $verified = false;
-      //
-      // $stm = $handle->prepare("INSERT INTO new_users (username, email, password, verified, token) VALUES (:username, :email, :password, :verified, :token)");
-      // $stm->bindParam(':username', $username);
-      // $stm->bindParam(':email', $userEmail);
-      // $stm->bindParam(':password', $HashedPassword);
-      // $stm->bindParam(':verified', $verified);
-      // $stm->bindParam(':token', $token);
-      //
-      // if ($stm->execute()) {
-      //   $user_id = $handle->lastInsertId();
-      //
-      //   $_SESSION['id'] = $user_id;
-      //   $_SESSION['username'] = $username;
-      //   $_SESSION['user-email'] = $userEmail;
-      //   $_SESSION['verified'] = $verified;
-      //
-      //   $_SESSION['message'] = "You are now logged in";
-      //   header('location: php/index.php');
-      //   exit();
-      // }else {
-      //   $error['db_error'] = "Database error: failed to register";
-      // }
+      $HashedPassword = password_hash($password, PASSWORD_DEFAULT);
+      $token = bin2hex(random_bytes(50));
+      $verified = false;
+
+      $stm = $handle->prepare("INSERT INTO new_users (username, email, password, verified, token) VALUES (:username, :email, :password, :verified, :token)");
+      $stm->bindParam(':username', $username);
+      $stm->bindParam(':email', $userEmail);
+      $stm->bindParam(':password', $HashedPassword);
+      $stm->bindParam(':verified', $verified);
+      $stm->bindParam(':token', $token);
+
+      if ($stm->execute()) {
+        $user_id = $handle->lastInsertId();
+
+        $_SESSION['id'] = $user_id;
+        $_SESSION['username'] = $username;
+        $_SESSION['user-email'] = $userEmail;
+        $_SESSION['verified'] = $verified;
+
+        $_SESSION['message'] = "You are now logged in";
+        header('location: php/index.php');
+        exit();
+      }else {
+        $error['db_error'] = "Database error: failed to register";
+      }
       header('location: create.php');
-    }
+    }*/
 /*
     function FunctionName($daemail)
     {
@@ -97,20 +98,21 @@
         $error['UserNameError'] = "Username already exists";
       }
     }*/
-/*
+
     $emailQuery = "SELECT * FROM new_users WHERE email=? LIMIT 1";
-    //$usernameQuery = "SELECT * FROM new_users WHERE username=? LIMIT 1";
+    $usernameQuery = "SELECT * FROM new_users WHERE username=? LIMIT 1";
     $emailstmt = $handle->prepare($emailQuery);
-    //$usernamestmt = $handle->prepare($usernameQuery);
-    $emailstmt = bindParam(':email', $userEmail);
-    //$usernamestmt = bindParam(':username', $username);
-    $emailstmt->execute();
-    //$usernamestmt->execute();
+    $usernamestmt = $handle->prepare($usernameQuery);
+    //$emailstmt->bindParam(':email', $userEmail);
+    $emailstmt->bind_param('s', $userEmail);
+    $usernamestmt->bindParam(':username', $username);
+    $emailstmt->execute([$userEmail]);
+    $usernamestmt->execute([$username]);
     $emailResult = $emailstmt->fetch();
-    //$usernameResult= $usernamestmt->fetch();
+    $usernameResult= $usernamestmt->fetch();
     $emailCount = $emailResult->rowCount();
-    //$usernameCount = $usernameResult->rowCount();
-    try {
+    $usernameCount = $usernameResult->rowCount();
+  /*  try {
       if ($emailCount === 0) {
         echo "It works";
       }else {
@@ -119,10 +121,10 @@
     } catch (Exception $ex) {
       $error['EmailError'] = $ex;
     }
-
-    // if ($emailCount > 0) {
-    //   $error['EmailError = "Email already exists";
-    // }
+*/
+    if ($emailCount > 0) {
+      $error['EmailError'] = "Email already exists";
+    }
     if ($usernameCount > 0) {
       $error['UserNameError'] = "Username already exists";
     }
@@ -152,7 +154,7 @@
         exit();
       }else {
         $error['db_error'] = "Database error: failed to register";
-      }*/
+      }
     }
-  //}
+  }
 ?>

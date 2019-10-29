@@ -1,10 +1,9 @@
 <?php
     require_once 'connect.php';
-    include 'signup.php';
+    //include 'signup.php';
 
     print_r($_POST);
 
-    echo "OOOOHHHHH!!!!! shit I'm in the create page!!!!!";
     $username = $_POST['username'];
     $userEmail = $_POST['user-email'];
     $password = $_POST['passwd'];
