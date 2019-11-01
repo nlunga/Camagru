@@ -41,30 +41,29 @@
       //$ConfPasswordError = "Invalid password";
       $error['ConfPasswordError'] = "Password does no match";
     }
+     $emailQuery = "SELECT * FROM new_users WHERE email=? LIMIT 1";
+    // $usernameQuery = "SELECT * FROM new_users WHERE username=? LIMIT 1";
+     $emailstmt = $handle->prepare($emailQuery);
+    // $usernamestmt = $handle->prepare($usernameQuery);
+     $emailstmt->bindParam(':email', $userEmail);
+    // //$emailstmt->bind_param('s', $userEmail);
+    // $usernamestmt->bindParam(':username', $username);
+     $emailstmt->execute([$userEmail]);
+    // $usernamestmt->execute([$username]);
+     $emailResult = $emailstmt->fetch();
+    // $usernameResult= $usernamestmt->fetch();
+     $emailCount = $emailResult->rowCount();
+    // $usernameCount = $usernameResult->rowCount();
+    //
+     if ($emailCount > 0) {
+       $error['EmailError'] = "Email already exists";
+     }
+    // if ($usernameCount > 0) {
+    //   $error['UserNameError'] = "Username already exists";
+    // }
     if (count($error) === 0) {
-      //echo "Success biyatch";
       require('create.php');
-      //header('Location: create.php');
-      // $username = $_POST['username'];
-      // $userEmail = $_POST['user-email'];
-      // $password = $_POST['passwd'];
-      // $confPass = $_POST['confPasswd'];
-
-      // $HashedPassword = password_hash($password, PASSWORD_DEFAULT);
-      // $token = bin2hex(random_bytes(50));
-      // $verified = false;
-      //
-      // $stmt = $handle->prepare("INSERT INTO new_users (username, email, password, verified, token) VALUES (:username, :email, :password, :verified, :token)");
-      // $stmt->bindParam(':username', $username);
-      // $stmt->bindParam(':email', $userEmail);
-      // $stmt->bindParam(':password', $HashedPassword);
-      // $stmt->bindParam(':verified', $verified);
-      // $stmt->bindParam(':token', $token);
-      //
-      // $stmt->execute();
-      // echo "Registration Successful...";
-      // $stmt->close();
-      // $handle->close();
+      header('Location: ../index.php');
     }
 
   }

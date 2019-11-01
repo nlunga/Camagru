@@ -1,16 +1,15 @@
 <?php
     require_once 'connect.php';
-    //include 'signup.php';
 
     print_r($_POST);
 
-    $username = $_POST['username'];
-    $userEmail = $_POST['user-email'];
-    $password = $_POST['passwd'];
-    $confPass = $_POST['confPasswd'];
+    // $username = $_POST['username'];
+    // $userEmail = $_POST['user-email'];
+    // $password = $_POST['passwd'];
+    // $confPass = $_POST['confPasswd'];
     $HashedPassword = password_hash($password, PASSWORD_DEFAULT);
     $token = bin2hex(random_bytes(50));
-    $verified = false;
+    $verified = 0;
     //echo "Valid user";
     // $HashedPassword = password_hash($password, PASSWORD_DEFAULT);
     // $token = bin2hex(random_bytes(50));
@@ -37,6 +36,7 @@
 
     $stmt->execute();
     echo "Registration Successful...";
-    $stmt->close();
-    $handle->close();
+
+    //$handle->close();
+      //$stmt->close();
 ?>

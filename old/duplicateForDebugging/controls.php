@@ -103,8 +103,8 @@
     $usernameQuery = "SELECT * FROM new_users WHERE username=? LIMIT 1";
     $emailstmt = $handle->prepare($emailQuery);
     $usernamestmt = $handle->prepare($usernameQuery);
-    //$emailstmt->bindParam(':email', $userEmail);
-    $emailstmt->bind_param('s', $userEmail);
+    $emailstmt->bindParam(':email', $userEmail);
+    //$emailstmt->bind_param('s', $userEmail);
     $usernamestmt->bindParam(':username', $username);
     $emailstmt->execute([$userEmail]);
     $usernamestmt->execute([$username]);
