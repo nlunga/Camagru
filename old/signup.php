@@ -1,5 +1,5 @@
 <?php
-  require 'controls.php';
+  require_once 'controls.php';
 ?>
 
 <!DOCTYPE html>
