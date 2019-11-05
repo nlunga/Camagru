@@ -1,8 +1,5 @@
 <?php
     require_once 'reconnect.php';
-    // $username;
-    // $userEmail;
-    // $password;
 
     function insert2table($handle, $userdata, $emaildata, $userpass){
       try {
@@ -17,7 +14,21 @@
         $stmt->bindParam(':verified', $verified);
         $stmt->bindParam(':token', $token);
 
-        $stmt->execute();
+        //$stmt->execute();
+        if ($stmt->execute()) {
+          $user_id = $handle->lastInsertId();
+          $_SESSION['id'] = $user_id;
+          $_SESSION['username'] = $userdata;
+          $_SESSION['email'] = $emaildata;
+          $_SESSION['verified'] = $verified;
+
+          mail($_SESSION['email'], "Verify Email", "Click the link below to verify: http://localhost:8080/Camagru/new/index.php?token=$token");
+
+          $_SESSION['message'] = "You are now logged in";
+          header('Location: index.php');
+          exit();
+          //echo "New record created successfully. Last inserted ID is: " . $user_id;
+        }
         if ($stmt->rowCount() == 1) {
           echo "Registration Successful...";
         }
