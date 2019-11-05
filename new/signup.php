@@ -18,8 +18,7 @@
               echo "<li>" . $errors . "</li><br>";
             }
             echo "</ul>";
-          }else {
-            //echo "none";
+            //echo now();
           }
         ?>
       </div>

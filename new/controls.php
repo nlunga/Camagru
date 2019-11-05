@@ -2,10 +2,10 @@
   //session_start();
   include 'create.php';
 
-  $UserNameError = "";
-  $EmailError = "";
-  $PasswordError = "";
-  $ConfPasswordError = "";
+  // $UserNameError = "";
+  // $EmailError = "";
+  // $PasswordError = "";
+  // $ConfPasswordError = "";
 
   $error = array();
 
@@ -60,7 +60,7 @@
     // }
     if (count($error) === 0) {
       insert2table($handle, $username, $userEmail, $password);
-      header('Location: ../index.php');
+      //header('Location: index.php');
     }
 
   }

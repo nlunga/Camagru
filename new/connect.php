@@ -8,9 +8,7 @@
   try {
     $handle = new PDO("$host", "$user", "$pass");
     $handle->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    //echo "connected";
   } catch (PDOException $e) {
-    // echo "DED";
     die("Oops. Something went wrong in the database ");
   }
 
