@@ -1,5 +1,16 @@
 <?php
   require_once 'controls.php';
+
+  if (isset($_GET['token'])) {
+    $token = $_GET['token'];
+    verifyUser($token);
+  }
+
+  if (isset($_GET['password-token'])) {
+    $passwordToken = $_GET['password-token'];
+    resetPassword($passwordToken);
+  }
+
   if (!isset($_SESSION['id'])) {
     header('location: signup.php');
     exit();
@@ -33,7 +44,7 @@
         <input type="submit" name="ver" value="I am Verified">
       </form>
     <?php endif; ?>
-    <p>You are currently not signed in <a href="new/login.php">Login</a> Not yet a member? <a href="new/signup.php">Sign up</a></p>
+    <p>You are currently not signed in <a href="login.php">Login</a> Not yet a member? <a href="signup.php">Sign up</a></p>
     <p>You are logged in as <?php echo $_SESSION['username']; ?> <a href="index.php?logout=1">Log out</a> </p>
   </body>
 </html>

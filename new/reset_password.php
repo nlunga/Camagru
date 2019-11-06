@@ -3,7 +3,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Log In</title>
+    <title>Reset Password</title>
   </head>
   <body>
     <div class="error_message">
@@ -19,11 +19,11 @@
       ?>
     </div>
     <div class="form-container">
-      <form class="sign" action="login.php" method="POST">
-        <input type="text" name="username-email" value="<?php echo $username_email; ?>" placeholder="Email or username"><br>
-        <input type="password" name="log-passwd" value="" placeholder="Password"><br>
-        <input type="submit" name="login-btn" value="Log In"><br>
-        <a href="forgot.php">Forgot Password?</a>
+      <form class="sign" action="reset_password.php" method="POST">
+        <h3>Confirm Password</h3>
+        <input type="password" name="passwd" value="" placeholder="Password"><br>
+        <input type="password" name="con-passwd" value="" placeholder="Confirm Password"><br>
+        <input type="submit" name="resetPassword-btn" value="Reset Password"><br>
         <p>Don't have an account? <a href="signup.php">Sign up</a></p>
       </form>
     </div>

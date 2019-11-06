@@ -1,9 +1,10 @@
 <?php require_once 'controls.php'; ?>
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Log In</title>
+    <title>Forgot Password</title>
   </head>
   <body>
     <div class="error_message">
@@ -19,12 +20,11 @@
       ?>
     </div>
     <div class="form-container">
-      <form class="sign" action="login.php" method="POST">
-        <input type="text" name="username-email" value="<?php echo $username_email; ?>" placeholder="Email or username"><br>
-        <input type="password" name="log-passwd" value="" placeholder="Password"><br>
-        <input type="submit" name="login-btn" value="Log In"><br>
-        <a href="forgot.php">Forgot Password?</a>
-        <p>Don't have an account? <a href="signup.php">Sign up</a></p>
+      <form class="recovery" action="forgot.php" method="POST">
+        <h2>Recover Password</h2>
+        <p>Please enter your email account so we can assist you in recovering you account.</p>
+        <input type="email" name="recover-email" value="" placeholder="email"><br>
+        <input type="submit" name="recover-btn" value="Recover my Password">
       </form>
     </div>
   </body>

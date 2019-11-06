@@ -22,7 +22,7 @@
           $_SESSION['email'] = $emaildata;
           $_SESSION['verified'] = $verified;
 
-          mail($_SESSION['email'], "Verify Email", "Click the link below to verify: http://localhost:8080/Camagru/new/index.php?token=$token");
+          mail($_SESSION['email'], "Verify your email", "Click the link below to verify: http://localhost:8080/Camagru/new/index.php?token=$token");
 
           $_SESSION['message'] = "You are now logged in";
           header('Location: index.php');
