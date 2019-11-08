@@ -30,6 +30,7 @@
         unset($_SESSION['message']);
       ?>
     <?php endif; ?>
+    <a href="profile.php">My Profile</a>
     <h3>Welcome <?php echo $_SESSION['username']; ?></h3>
     <?php if (!$_SESSION['verified']):?>
       <div class="verify">

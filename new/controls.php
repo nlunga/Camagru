@@ -1,7 +1,6 @@
 <?php
   session_start();
   include 'create.php';
-  require_once 'emailController.php';
 
   $error = array();
   $username = "";
@@ -10,6 +9,27 @@
   function test_user_input ($data) {
     return $data;
   }
+
+/*function duplicateValidation($data, $table_name, $check, $checkValue){
+    global $handle;
+    try {
+/*      $sql = "SELECT * FROM $table_name WHERE $check=? LIMIT 1";
+      $stmt = $handle->prepare($sql);
+      $stmt->bindParam($checkValue, $data);
+      $stmt->execute();
+      $row_count = $stmt->fetchColumn();
+      if ($row_count > 0) {
+        $error['duplicateError'] = "$check already exists in the database";
+      }
+    } catch (PDOException $e) {
+      //die("Unable to access the database... ").$e->getMessage();
+        echo "Unable to access the database... ".$e->getMessage();
+    }*/
+    /*$sql = "SELECT email FROM new_users";
+    $result_set = $handle->query($sql);
+    $array = $result_set->fetchall();
+    var_dump($array);
+  }*/
 
   function sendPasswordResetLink($userMail, $token)
   {
@@ -44,8 +64,8 @@
     if ($confPass !== $password) {
       $error['ConfPasswordError'] = "Password does no match";
     }
-    /* //uncomment
-     $emailQuery = "SELECT * FROM new_users WHERE email=? LIMIT 1";
+     //uncomment
+  /*   $emailQuery = "SELECT * FROM new_users WHERE email=? LIMIT 1";
     // $usernameQuery = "SELECT * FROM new_users WHERE username=? LIMIT 1";
      $emailstmt = $handle->prepare($emailQuery);
     // $usernamestmt = $handle->prepare($usernameQuery);
@@ -65,7 +85,9 @@
     // if ($usernameCount > 0) {
     //   $error['UserNameError'] = "Username already exists";
     // }
+    //duplicateValidation($userEmail, "new_users", "email", ":email");
     if (count($error) === 0) {
+
       insert2table($handle, $username, $userEmail, $password);
       //header('Location: index.php');
     }

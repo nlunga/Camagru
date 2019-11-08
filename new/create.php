@@ -33,7 +33,7 @@
           echo "Registration Successful...";
         }
       } catch (PDOException $e) {
-        die("Failed to insert data to database").$e->getMessage();
+        echo "Failed to insert data to database".$e->getMessage();
       }
     }
 ?>
