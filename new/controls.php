@@ -33,7 +33,7 @@
 
   function sendPasswordResetLink($userMail, $token)
   {
-    mail($userMail, "Reset your Password", "Reset Password: http://localhost:8080/Camagru/new/index.php?password-token=$token");
+    mail($userMail, "Reset your Password", "Reset Password: http://localhost:8080/Camagru/new/home.php?password-token=$token");
 
   }
 
@@ -89,7 +89,7 @@
     if (count($error) === 0) {
 
       insert2table($handle, $username, $userEmail, $password);
-      //header('Location: index.php');
+      //header('Location: home.php');
     }
 
   }
@@ -122,7 +122,7 @@
         $_SESSION['message'] = "You are now logged in";
         unset($_SESSION['message']);
 
-        header('Location: index.php');
+        header('Location: home.php');
         exit();
       }else {
         $error['login_fail'] = "Wrong info";
@@ -165,7 +165,7 @@
         $_SESSION['message'] = "Your email address was successfullyverified";
         unset($_SESSION['message']);
 
-        header('Location: index.php');
+        header('Location: home.php');
         exit();
       }
     }else {
