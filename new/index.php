@@ -17,5 +17,8 @@
         <a href="login.php">Log in</a>
       </div>
     </div>
+    <div id="container">
+      
+    </div>
   </body>
 </html>

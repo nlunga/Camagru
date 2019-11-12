@@ -121,9 +121,13 @@
 
         $_SESSION['message'] = "You are now logged in";
         unset($_SESSION['message']);
-
-        header('Location: home.php');
-        exit();
+        if ($_SESSION['verified'] == 0) {
+          header('Location: verify_message.php');
+          exit();
+        }else {
+          header('Location: home.php');
+          exit();
+        }
       }else {
         $error['login_fail'] = "Wrong info";
       }
