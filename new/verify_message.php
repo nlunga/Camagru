@@ -20,7 +20,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title><? echo $_SESSION['username'];?></title>
+    <title><?php echo $_SESSION['username'];?></title>
   </head>
   <body>
     <h2>Camagru</h2>
@@ -44,6 +44,6 @@
         <input type="submit" name="ver" value="I am Verified">
       </form>
     <?php endif; ?>
-    <p>You are logged in as <?php echo $_SESSION['username']; ?> <a href="home.php?logout=1">Log out</a> </p>
+    <p>You are logged in as <?php echo $_SESSION['username']; ?> <a href="index.php?logout=1">Log out</a> </p>
   </body>
 </html>

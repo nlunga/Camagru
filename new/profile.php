@@ -20,6 +20,7 @@
     </style>
   </head>
   <body>
+    <a href="index.php"><h1>Camagru</h1></a>
     <div class="prof">
       <label>
         <img id="profilePic" style="border-radius: 50%;" width="250" height="250" name="<?php echo $picture; ?>" src="resources/noavatar.png"  alt="unsplash"><br>
