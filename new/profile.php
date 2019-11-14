@@ -1,11 +1,13 @@
 <?php
   require_once 'controls.php';
+  include 'proccessForm.php';
   $username = "";
   $picture = "";
   if (isset($_SESSION['id'])) {
     $username = $_SESSION['username'];
     $picture = $_SESSION['username']."-pic";
   }
+
 ?>
 
 <!DOCTYPE html>
@@ -22,7 +24,7 @@
   <body>
     <a href="index.php"><h1>Camagru</h1></a>
     <div class="prof">
-      <form class="prof" action="" method="post" enctype="multipart/form-data">
+      <form class="prof" action="profile.php" method="post" enctype="multipart/form-data">
         <label>
           <img id="profilePic" style="border-radius: 50%;" width="250" height="250" name="<?php echo $picture; ?>" src="resources/noavatar.png"  alt="unsplash"><br>
           <input type="file" name="profile-photo" onchange="handleFiles(this.files)">
