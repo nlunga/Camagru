@@ -22,10 +22,13 @@
   <body>
     <a href="index.php"><h1>Camagru</h1></a>
     <div class="prof">
-      <label>
-        <img id="profilePic" style="border-radius: 50%;" width="250" height="250" name="<?php echo $picture; ?>" src="resources/noavatar.png"  alt="unsplash"><br>
-        <input type="file" name="profile-photo" onchange="handleFiles(this.files)">
-      </label>
+      <form class="prof" action="" method="post" enctype="multipart/form-data">
+        <label>
+          <img id="profilePic" style="border-radius: 50%;" width="250" height="250" name="<?php echo $picture; ?>" src="resources/noavatar.png"  alt="unsplash"><br>
+          <input type="file" name="profile-photo" onchange="handleFiles(this.files)">
+        </label>
+          <input type="submit" name="upload-prof" value="Upload">
+      </form>
     </div>
 
     hi <?php echo $username;?>
