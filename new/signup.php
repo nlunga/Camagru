@@ -18,7 +18,6 @@
               echo "<li>" . $errors . "</li><br>";
             }
             echo "</ul>";
-            //echo now();
           }
         ?>
       </div>

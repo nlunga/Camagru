@@ -25,6 +25,17 @@
     <a href="index.php"><h1>Camagru</h1></a>
     <div class="prof">
       <form class="prof" action="profile.php" method="post" enctype="multipart/form-data">
+      <div class="error_message">
+        <?php
+          if (count($error)>0) {
+            echo "<ul>";
+            foreach ($error as $erro) {
+              echo "<li>" . $erro . "</li><br>";
+            }
+            echo "</ul>";
+          }
+        ?>
+      </div>
         <label>
           <img id="profilePic" style="border-radius: 50%;" width="250" height="250" name="<?php echo $picture; ?>" src="resources/noavatar.png"  alt="unsplash"><br>
           <input type="file" name="profile-photo" onchange="handleFiles(this.files)">
