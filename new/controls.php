@@ -151,10 +151,8 @@
   {
     global $handle;
     $sql = "SELECT * FROM new_users WHERE token='$token' LIMIT 1";
-    //$result = $handle->exec($sql);
     $result = $handle->prepare($sql);
     $result->execute();
-    //$row_count = $result->rowCount();
     $row_count = $result->fetchColumn();
     if ($row_count > 0) {
       $user = $result->fetch(PDO::FETCH_ASSOC);

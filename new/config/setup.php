@@ -49,10 +49,26 @@
     try {
       $sql = "CREATE TABLE $table_name (
         id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+        images blob NOT NULL,
         userId INT(11) UNSIGNED NOT NULL,
-        FOREIGN KEY (userId) REFERENCES $new_users(id) ON DELETE CASCADE,
+        FOREIGN KEY (userId) REFERENCES $new_users(id) ON DELETE CASCADE
+      )";
+      $handle->exec($sql);
+      echo "Table $table_name created successfully<br>";
+    } catch (PDOException $e) {
+      echo "Table creation failed ".$e->getMessage();
+    }
+  }
+
+  function profile_table($table_name, $handle)
+  {
+    global $new_users;
+    try {
+      $sql = "CREATE TABLE $table_name (
+        id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
         profile_pic blob NOT NULL,
-        images blob NOT NULL
+        userId INT(11) UNSIGNED NOT NULL,
+        FOREIGN KEY (userId) REFERENCES $new_users(id) ON DELETE CASCADE
       )";
       $handle->exec($sql);
       echo "Table $table_name created successfully<br>";
@@ -77,5 +93,6 @@
   create_db(DB_NAME, $handle);
   require '../reconnect.php';
   create_table($new_users, $handle);
+  profile_table("profile", $handle);
   image_table("images", $handle);
 ?>

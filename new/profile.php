@@ -4,8 +4,19 @@
   $username = "";
   $picture = "";
   if (isset($_SESSION['id'])) {
+    $user_id = $_SESSION['id'];
     $username = $_SESSION['username'];
-    $picture = $_SESSION['username']."-pic";
+    require_once 'reconnect.php';
+    $sql = "SELECT * FROM profile WHERE userId='$user_id' LIMIT 1";
+    $result = $handle->prepare($sql);
+    $result->execute();
+    $row_count = $result->fetchColumn();
+    if ($row_count > 0) {
+      $user = $result->fetch(PDO::FETCH_ASSOC);
+      $_SESSION['profile_pic'] = $user['profile_pic'];
+      $picture = $_SESSION['profile_pic'];
+      $_SESSION['id'] = $user['id'];
+    }
   }
 
 ?>
@@ -18,6 +29,10 @@
     <style>
       input[type="file"] {
         display: none;
+      }
+
+      #test{
+       /* display: unset; */
       }
     </style>
   </head>
@@ -45,13 +60,31 @@
     </div>
 
     hi <?php echo $username;?>
+    <hr>
+    <div class="wrapper">
+      <div class="userNav">
+        <?php
+          require 'delete.php';
+          //delete_data("images", $handle, $_SESSION['id']);
+        ?>
+        <form action="profile.php" method="post" enctype="multipart/form-data">
+          <label for="test">Choose Image</label>
+            <input type="file" id="test" name="images">
+
+            <!-- <input type="file" id="test" name="Choose Image"> -->
+
+
+          <input type="submit" name="imageUpload" value="Upload Image">
+        </form>
+      </div>
+    </div>
     <script type="text/javascript">
       function handleFiles(files) {
         if (!files.length) {
-          console.log("No files selected!");
+          // console.log("No files selected!");
         } else {
             for (let i = 0; i < files.length; i++) {
-              console.log(files[i].name);
+              // console.log(files[i].name);
               var pic = document.getElementById("profilePic");
               pic.src = window.URL.createObjectURL(files[i]);
           }
