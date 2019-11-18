@@ -43,7 +43,7 @@
           $temp = explode("_", $row['images']);
           echo '<img  src="saveImages/'.$temp[1] . '" height="250" width="250" alt="fail">';
           echo "<br>";
-          ?><a href="delete.php?id=<?php echo $row["id"]; ?>">Delete</a>
+          ?><a href="delete.php?id=<?php echo $row["id"]; ?>&path=<?php echo $temp[1]; ?>">Delete</a>
           <?php echo "</td><br>";
         }
         echo "</tr></table>";

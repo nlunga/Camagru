@@ -12,21 +12,26 @@
     }
   }
   $id = "";
+  $path = "";
   if (isset($_GET['id'])) {
   $id = $_GET['id'];
+  $path = "saveImages/" . urldecode($_GET['path']);
   function deleteImage($imageId, $table_name) {
     global $handle;
+    global $path;
     try {
-    $sql = "DELETE FROM $table_name WHERE id='$imageId'";
-    $handle->exec($sql);
+      $sql = "DELETE FROM $table_name WHERE id='$imageId'";
+      $handle->exec($sql);
+      if (!unlink($path)) {
+        echo "You have an error";
+      }else{
+        header("location: profile.php");
+      }
     }catch(PDOExeption $e){
       echo "Failed to delete image ".$e->getMessage();
     }
   }
-
-
     deleteImage($id, "images");
-    header("location: profile.php");
   }
 
   
