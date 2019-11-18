@@ -78,6 +78,14 @@
           <input type="file" id="test" name="images">
           <input type="submit" name="imageUpload" value="Upload Image">
         </form>
+        <hr>
+        <div class="gallery">
+          <?php
+            require_once 'imageInsert.php';
+            getImage("images");
+          ?>
+
+        </div>
       </div>
     </div>
     <script type="text/javascript">
