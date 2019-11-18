@@ -77,6 +77,7 @@
           <label for="test">Choose Image</label>
           <input type="file" id="test" name="images">
           <input type="submit" name="imageUpload" value="Upload Image">
+          <a href="camera_view.php">take a pic</a>
         </form>
         <hr>
         <div class="gallery">
