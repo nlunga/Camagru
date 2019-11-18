@@ -11,4 +11,23 @@
       echo "Database drop failed ".$e->getMessage();
     }
   }
+  $id = "";
+  if (isset($_GET['id'])) {
+  $id = $_GET['id'];
+  function deleteImage($imageId, $table_name) {
+    global $handle;
+    try {
+    $sql = "DELETE FROM $table_name WHERE id='$imageId'";
+    $handle->exec($sql);
+    }catch(PDOExeption $e){
+      echo "Failed to delete image ".$e->getMessage();
+    }
+  }
+
+
+    deleteImage($id, "images");
+    header("location: profile.php");
+  }
+
+  
 ?>

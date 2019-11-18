@@ -48,7 +48,7 @@
       insertProfileImage($_SESSION['id'], $filename);
     }
   }
-
+  $errorn = array();
   if (isset($_POST['imageUpload'])) {
     $fileinfo = @getimagesize($_FILES["images"]["tmp_name"]);
     $filename = time()."_".$_FILES["images"]["name"];

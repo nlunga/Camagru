@@ -40,11 +40,37 @@
         echo "<table><tr>";
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
           echo "<td>";
-          echo '<img src="data:imagejpeg;base64,'.base64_encode($row['image1']).'" height="100" width="100" alt="">';
-          echo "</td>";
+          $temp = explode("_", $row['images']);
+          echo '<img  src="saveImages/'.$temp[1] . '" height="250" width="250" alt="fail">';
+          echo "<br>";
+          ?><a href="delete.php?id=<?php echo $row["id"]; ?>">Delete</a>
+          <?php echo "</td><br>";
         }
         echo "</tr></table>";
 
+    } catch (PDOException $e) {
+      echo "Failed to pull image from the database ".$e->getMessage();
+    }
+
+  }
+
+  function publicImage($table_name)
+  {
+    global $handle;
+
+    try {
+        $sql = "SELECT * FROM $table_name";
+        $stmt = $handle->prepare($sql);
+        $stmt->execute();
+        echo "<table><tr>";
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+          echo "<td>";
+          $temp = explode("_", $row['images']);
+          echo '<img  src="saveImages/'.$temp[1] . '" height="250" width="250" alt="fail">';
+          echo "<br>";
+          echo "</td><br>";
+        }
+        echo "</tr></table>";
     } catch (PDOException $e) {
       echo "Failed to pull image from the database ".$e->getMessage();
     }

@@ -39,6 +39,10 @@
       </div>
     </div>
     <div id="container">
+      <?php
+        require_once 'imageInsert.php';
+        publicImage("images");
+      ?>
     </div>
   </body>
 </html>
