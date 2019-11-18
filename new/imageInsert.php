@@ -11,7 +11,7 @@
       $stmt->bindParam(':userId', $newUserId);
       $stmt->execute();
     } catch (PDOException $e) {
-        echo "Image failed to upload".$e->getMessage();
+        echo "Image failed to upload --->>>>".$e->getMessage();
     }
   }
 
@@ -28,5 +28,4 @@
         echo "Image failed to upload".$e->getMessage();
     }
   }
-  // insertProfileImage($_SESSION['id'], $_FILES["profile-photo"]["name"]);
 ?>

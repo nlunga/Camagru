@@ -1,5 +1,6 @@
 <?php
-
+  // session_start();
+  require_once 'imageInsert.php';
   $error = array();
 
   if (isset($_POST["upload-prof"])) {
@@ -43,7 +44,7 @@
     }
 
     if (count($error) === 0) {
-      require 'imageInsert.php';
+      // require 'imageInsert.php';
       insertProfileImage($_SESSION['id'], $filename);
     }
   }
@@ -54,20 +55,20 @@
     $allowed_image_extension = array("png", "jpg", "jpeg");
 
     $file_extension = pathinfo($_FILES["images"]["name"], PATHINFO_EXTENSION);
-    if (! in_array($file_extension, $allowed_image_extension)) {
-      $error["imageError"] = "Upload valid images. Only PNG and JPEG are allowed.";
+    if (! file_exists($_FILES["images"]["tmp_name"])) {
+      $errorn["imageError"] = "Choose image file to upload.";
+    }else if (! in_array($file_extension, $allowed_image_extension)) {
+      $errorn["imageError"] = "Upload valid images. Only PNG and JPEG are allowed.";
     }else {
       $img_dir = "saveImages/" . $_FILES["images"]["name"];
       if (move_uploaded_file($_FILES["images"]["tmp_name"], $img_dir)) {
-        echo "Image uploaded successfully.";
+        $response["imageSuccess"] = "Image uploaded successfully.<br>";
       }else {
-          $error["imageError"] = "Problem in uploading image files.";
+          $errorn["imageError"] = "Problem in uploading image files.";
       }
     }
 
-    if (count($error) === 0) {
-      require 'imageInsert.php';
-      insertProfileImage($_SESSION['id'], $filename);
+    if (count($errorn) === 0) {
       insertImage($_SESSION['id'], $filename);
 
     }

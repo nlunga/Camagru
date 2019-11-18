@@ -3,21 +3,30 @@
   include 'proccessForm.php';
   $username = "";
   $picture = "";
-  if (isset($_SESSION['id'])) {
-    $user_id = $_SESSION['id'];
-    $username = $_SESSION['username'];
-    require_once 'reconnect.php';
-    $sql = "SELECT * FROM profile WHERE userId='$user_id' LIMIT 1";
-    $result = $handle->prepare($sql);
-    $result->execute();
-    $row_count = $result->fetchColumn();
-    if ($row_count > 0) {
-      $user = $result->fetch(PDO::FETCH_ASSOC);
-      $_SESSION['profile_pic'] = $user['profile_pic'];
-      $picture = $_SESSION['profile_pic'];
-      $_SESSION['id'] = $user['id'];
+  // if (isset($_SESSION['id'])) {
+  //   $user_id = $_SESSION['id'];
+  //   $username = $_SESSION['username'];
+  //   require_once 'reconnect.php';
+  //   $sql = "SELECT * FROM profile WHERE userId='$user_id' LIMIT 1";
+  //   $result = $handle->prepare($sql);
+  //   $result->execute();
+  //   $row_count = $result->fetchColumn();
+  //   if ($row_count > 0) {
+  //     $user = $result->fetch(PDO::FETCH_ASSOC);
+  //     $_SESSION['profile_pic'] = $user['profile_pic'];
+  //     $picture = $_SESSION['profile_pic'];
+  //     $_SESSION['id'] = $user['id'];
+  //   }
+  // }else {
+  //   // header('location: index.php');
+  // }
+
+    if (!isset($_SESSION['id'])) {
+      header('location: index.php');
+    }else {
+      $user_id = $_SESSION['id'];
+      $username = $_SESSION['username'];
     }
-  }
 
 ?>
 
@@ -31,9 +40,6 @@
         display: none;
       }
 
-      #test{
-       /* display: unset; */
-      }
     </style>
   </head>
   <body>
@@ -69,11 +75,7 @@
         ?>
         <form action="profile.php" method="post" enctype="multipart/form-data">
           <label for="test">Choose Image</label>
-            <input type="file" id="test" name="images">
-
-            <!-- <input type="file" id="test" name="Choose Image"> -->
-
-
+          <input type="file" id="test" name="images">
           <input type="submit" name="imageUpload" value="Upload Image">
         </form>
       </div>
