@@ -16,6 +16,6 @@
     </form>
     <div id="demo"></div>
     <canvas id="canvas" width="640" height="480"></canvas>
-    <script src="./js/snap.js"></script>
+    <script src="../js/snap.js" type="module"></script>
   </body>
 </html>

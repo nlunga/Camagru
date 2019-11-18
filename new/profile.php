@@ -83,7 +83,7 @@
         <div class="gallery">
           <?php
             require_once 'imageInsert.php';
-            getImage("images");
+            getImage("images", $_SESSION['id']);
           ?>
 
         </div>

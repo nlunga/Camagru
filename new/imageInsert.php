@@ -29,12 +29,12 @@
     }
   }
 
-  function getImage($table_name)
+  function getImage($table_name, $userId)
   {
     global $handle;
 
     try {
-        $sql = "SELECT * FROM $table_name";
+        $sql = "SELECT * FROM $table_name WHERE userId='$userId'";
         $stmt = $handle->prepare($sql);
         $stmt->execute();
         echo "<table><tr>";
