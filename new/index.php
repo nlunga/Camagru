@@ -29,12 +29,12 @@
       </div>
       <div id="nav">
         <?php if (!isset($_SESSION['verified'])): ?>
-          <a href="signup.php">Sign Up</a>
-          <a href="login.php">Log in</a>
+          <a class="tab" href="signup.php">Sign Up</a>
+          <a class="tab" href="login.php">Log in</a>
         <?php endif; ?>
         <?php if (isset($_SESSION['verified'])): ?>
-          <a href="profile.php">My Profile</a>
-          <a href="index.php?logout=1">Log out</a>
+          <a class="tab" href="profile.php">My Profile</a>
+          <a class="tab" href="index.php?logout=1">Log out</a>
         <?php endif; ?>
       </div>
     </div>

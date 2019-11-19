@@ -57,16 +57,24 @@
   function publicImage($table_name)
   {
     global $handle;
+    $dest = "";
 
     try {
         $sql = "SELECT * FROM $table_name";
         $stmt = $handle->prepare($sql);
         $stmt->execute();
         echo "<table><tr>";
+
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+          $dest = $row['id'];
           echo "<td>";
           $temp = explode("_", $row['images']);
+          if (isset($_SESSION['id'])) {
+            $link = '<a href="comments_likes.php?id='.$dest.'">';
+            echo $link.'<img src="saveImages/' . $temp[1] . '" height="250" width="250" alt="fail"></a>';
+          }else{
           echo '<img  src="saveImages/'.$temp[1] . '" height="250" width="250" alt="fail">';
+          }
           echo "<br>";
           echo "</td><br>";
         }

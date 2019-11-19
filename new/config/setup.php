@@ -76,6 +76,40 @@
       echo "Table creation failed ".$e->getMessage();
     }
   }
+
+  function likesTable($table_name, $rel_table)
+  {
+    global $handle;
+    try {
+      $sql = "CREATE TABLE $table_name (
+        id int(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+        likes int(11) NOT NULL,
+        imageId int(11) UNSIGNED NOT NULL,
+        FOREIGN KEY (imageId) REFERENCES $rel_table (id) ON DELETE CASCADE
+      )";
+      $handle->exec($sql);
+      echo "Table $table_name created successfully<br>";
+    } catch (PDOException $e) {
+      echo "Table creation failed ".$e->getMessage();
+    }
+  }
+
+  function commentsTable($table_name, $rel_table)
+  {
+    global $handle;
+    try {
+      $sql = "CREATE TABLE $table_name (
+        id int(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+        comments VARCHAR(255) NOT NULL,
+        imageId int(11) UNSIGNED NOT NULL,
+        FOREIGN KEY (imageId) REFERENCES $rel_table (id) ON DELETE CASCADE
+      )";
+      $handle->exec($sql);
+      echo "Table $table_name created successfully<br>";
+    } catch (PDOException $e) {
+      echo "Table creation failed ".$e->getMessage();
+    }
+  }
   /*Regiter_Date timestamp NOT NULL*/
 
   function delete_table($table_name, $handle)
@@ -95,4 +129,6 @@
   create_table($new_users, $handle);
   profile_table("profile", $handle);
   image_table("images", $handle);
+  commentsTable("comments", "images");
+  likesTable("likes", "images");
 ?>
