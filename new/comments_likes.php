@@ -40,10 +40,16 @@
   <head>
     <meta charset="utf-8">
     <title></title>
+    <style>
+      #dat{
+        border: none;
+        border-bottom: 1px solid red;
+      }
+    </style>
   </head>
   <body>
     <form class="" action="comments_likes.php?id=<?php echo $_GET['id']; ?>" method="post">
-      <textarea name="comment" rows="8" cols="80"></textarea><br>
+      <textarea id="dat" name="comment" rows="1" cols="50"></textarea><br>
       <input type="submit" name="comment-btn" value="post">
     </form>
     <hr>
