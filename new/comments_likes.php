@@ -28,9 +28,11 @@
     $id = $_GET['id'];
     getImageInfo("images", $id);
   }
-
+  $comment = "";
   if (isset($_POST['comment-btn'])) {
-    $comment = $_SESSION['username'] .'->'. $_POST['comment'];
+    $comment = $_POST['comment'];
+    require_once 'commentLikesInsert.php';
+    addComment("comments", $id, $comment);
   }
 ?>
 <!DOCTYPE html>
@@ -47,7 +49,8 @@
     <hr>
     <div class="comments">
       <?php
-        echo $comment;
+        require_once 'commentLikesInsert.php';
+        getComment("comments", $id);
       ?>
     </div>
   </body>
