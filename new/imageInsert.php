@@ -67,10 +67,11 @@
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
           $dest = $row['id'];
+          $user_id = $row['userId'];
           echo "<td>";
           $temp = explode("_", $row['images']);
           if (isset($_SESSION['id'])) {
-            $link = '<a href="comments_likes.php?id='.$dest.'">';
+            $link = '<a href="comments_likes.php?id='.$dest.'&userId='.$user_id.'">';
             echo $link.'<img src="saveImages/' . $temp[1] . '" height="250" width="250" alt="fail"></a>';
           }else{
           echo '<img  src="saveImages/'.$temp[1] . '" height="250" width="250" alt="fail">';

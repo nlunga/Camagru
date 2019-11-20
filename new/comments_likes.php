@@ -24,15 +24,19 @@
     }
 
   }
+
+  $userId = "";
   if (isset($_GET['id'])) {
     $id = $_GET['id'];
+    $userId = $_GET['userId'];
     getImageInfo("images", $id);
   }
   $comment = "";
   if (isset($_POST['comment-btn'])) {
     $comment = $_POST['comment'];
     require_once 'commentLikesInsert.php';
-    addComment("comments", $id, $comment);
+    getPostUser("new_users", $_GET['userId']);
+    addComment("comments", $id, $comment, $_GET['userId']);
   }
 ?>
 <!DOCTYPE html>
@@ -48,7 +52,7 @@
     </style>
   </head>
   <body>
-    <form class="" action="comments_likes.php?id=<?php echo $_GET['id']; ?>" method="post">
+    <form class="" action="comments_likes.php?id=<?php echo $_GET['id']; ?>&userId=<?php echo $_GET['userId']?>" method="post">
       <textarea id="dat" name="comment" rows="1" cols="50"></textarea><br>
       <input type="submit" name="comment-btn" value="post">
     </form>
@@ -56,7 +60,7 @@
     <div class="comments">
       <?php
         require_once 'commentLikesInsert.php';
-        getComment("comments", $id);
+        getComment("comments", $id, $_GET['userId'], "new_users");
       ?>
     </div>
   </body>
