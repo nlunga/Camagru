@@ -108,7 +108,8 @@
         imageId int(11) UNSIGNED NOT NULL,
         userId INT(11) UNSIGNED NOT NULL,
         FOREIGN KEY (imageId) REFERENCES $rel_table (id) ON DELETE CASCADE,
-        FOREIGN KEY (userId) REFERENCES $new_users(id) ON DELETE CASCADE
+        FOREIGN KEY (userId) REFERENCES $new_users(id) ON DELETE CASCADE,
+        username VARCHAR(255) NOT NULL
       )";
       $handle->exec($sql);
       echo "Table $table_name created successfully<br>";
