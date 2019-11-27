@@ -21,10 +21,10 @@
       </div>
       <div class="snap">
         <input type="submit" id="take" name="snap-btn" value="Capture">
-        <!-- <form class="" action="ft_snapchat.php" method="post"  onsubmit="upload_img();"> -->
-          <!-- <input type="hidden"  id="img_sub" name="images" value=""> -->
+        <!--<form class="" action="ft_snapchat.php" method="post"  onsubmit="upload_img();">--><!--- this is to be commented out -->
+          <!--<input type="hidden"  id="img_sub" name="images" value="">--><!--- this is to be commented out -->
           <input type="button" id="upload" name="post" value="Upload">
-        <!-- </form> -->
+      <!--  </form> --><!--- this is to be commented out -->
       </div>
     <!-- </form> -->
     <div id="demo"></div>

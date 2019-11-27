@@ -49,7 +49,8 @@
     try {
       $sql = "CREATE TABLE $table_name (
         id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
-        images blob NOT NULL,
+        #images blob NOT NULL,
+        images VARCHAR(255) NOT NULL,
         userId INT(11) UNSIGNED NOT NULL,
         FOREIGN KEY (userId) REFERENCES $new_users(id) ON DELETE CASCADE
       )";
@@ -66,7 +67,8 @@
     try {
       $sql = "CREATE TABLE $table_name (
         id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
-        profile_pic blob NOT NULL,
+        #profile_pic blob NOT NULL,
+        profile_pic VARCHAR(255) NOT NULL,
         userId INT(11) UNSIGNED NOT NULL,
         FOREIGN KEY (userId) REFERENCES $new_users(id) ON DELETE CASCADE
       )";

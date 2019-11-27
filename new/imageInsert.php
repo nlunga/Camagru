@@ -54,6 +54,31 @@
 
   }
 
+  function getImageCamera($table_name, $userId)
+  {
+    global $handle;
+
+    try {
+        $sql = "SELECT * FROM $table_name WHERE userId='$userId'";
+        $stmt = $handle->prepare($sql);
+        $stmt->execute();
+        echo "<table><tr>";
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+          echo "<td>";
+          $temp = explode("_", $row['images']);
+          echo '<img  src="saveImages/'.$temp[1] . '" height="250" width="250" alt="fail">';
+          echo "<br>";
+          ?><a href="delete.php?id=<?php echo $row["id"]; ?>&path=<?php echo $temp[1]; ?>">Delete</a>
+          <?php echo "</td><br>";
+        }
+        echo "</tr></table>";
+
+    } catch (PDOException $e) {
+      echo "Failed to pull image from the database ".$e->getMessage();
+    }
+
+  }
+
   function publicImage($table_name)
   {
     global $handle;
