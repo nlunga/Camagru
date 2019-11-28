@@ -36,7 +36,7 @@ function takeSnapshot(){
   var imageDataURL = canvas.toDataURL('image/png');
   image.setAttribute('src', imageDataURL);
   var test = document.getElementById('img_sub');
-  test.value = imageDataURL;
+  // test.value = imageDataURL;
   //console.log(image);
   //console.log(test);
 }

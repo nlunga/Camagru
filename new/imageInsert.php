@@ -1,13 +1,13 @@
 <?php
   require 'reconnect.php';
 
-  function insertImage($newUserId, $userImage)
+  function insertImage($newUserId, $imagePath)
   {
     global $handle;
     try {
       $sql = "INSERT INTO images(images, userId) VALUES (:images, :userId)";
       $stmt = $handle->prepare($sql);
-      $stmt->bindParam(':images', $userImage);
+      $stmt->bindParam(':images', $imagePath);
       $stmt->bindParam(':userId', $newUserId);
       $stmt->execute();
     } catch (PDOException $e) {
@@ -40,10 +40,13 @@
         echo "<table><tr>";
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
           echo "<td>";
-          $temp = explode("_", $row['images']);
-          echo '<img  src="saveImages/'.$temp[1] . '" height="250" width="250" alt="fail">';
+
+          //$temp = explode("_", $row['images']);
+          //echo '<img  src="saveImages/'.$temp[1] . '" height="250" width="250" alt="fail">';
+          // echo '<img  src="saveImages/'.$row['images'].'" height="250" width="250" alt="fail">';
+          echo '<img  src="'.$row['images'].'" height="250" width="250" alt="fail">';
           echo "<br>";
-          ?><a href="delete.php?id=<?php echo $row["id"]; ?>&path=<?php echo $temp[1]; ?>">Delete</a>
+          ?><a href="delete.php?id=<?php echo $row["id"]; ?>&path=<?php echo $row['images']; ?>">Delete</a>
           <?php echo "</td><br>";
         }
         echo "</tr></table>";
@@ -97,9 +100,9 @@
           $temp = explode("_", $row['images']);
           if (isset($_SESSION['id'])) {
             $link = '<a href="comments_likes.php?id='.$dest.'&userId='.$user_id.'">';
-            echo $link.'<img src="saveImages/' . $temp[1] . '" height="250" width="250" alt="fail"></a>';
+            echo $link.'<img src="saveImages/' . $row['images'] . '" height="250" width="250" alt="fail"></a>';
           }else{
-          echo '<img  src="saveImages/'.$temp[1] . '" height="250" width="250" alt="fail">';
+          echo '<img  src="saveImages/'.$row['images'] . '" height="250" width="250" alt="fail">';
           }
           echo "<br>";
           echo "</td><br>";

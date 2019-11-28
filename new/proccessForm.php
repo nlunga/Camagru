@@ -1,6 +1,7 @@
 <?php
   // session_start();
   require_once 'imageInsert.php';
+  require_once 'controls.php';
   $error = array();
 
   if (isset($_POST["upload-prof"])) {
@@ -45,7 +46,7 @@
 
     if (count($error) === 0) {
       // require 'imageInsert.php';
-      insertProfileImage($_SESSION['id'], $filename);
+      insertProfileImage($_SESSION['id'], $_FILES['images']['tmp_name']);
     }
   }
 
@@ -82,26 +83,29 @@
       //  print_r($_POST);
 
       print_r($FILES);
-        $filename      = time()."_".uniqid();
-      	$target_file   = "./saveImages/".$filename;
+        //$filename      = time()."_".uniqid();
+        $filename      = uniqid();
+        $target_file   = $filename;
+      	$target_file2   = "./saveImages/".$filename;
       	$file          = $_FILES["file"];
       	$imageFileType = strtolower(pathinfo($file["tmp_name"], PATHINFO_EXTENSION));
       	$allowed       = array('jpg', 'jpeg', 'gif', 'png', 'tif');
       	$target_file  .= '.'.explode('/', $file['type'])[1];
       	$filename	  .= '.'.explode('/', $file['type'])[1];
 
-        print_r($file['tmp_name']);
-        print_r($target_file);
+        echo "----------".print_r($file['tmp_name']);
+        echo ">>>>>>>>>>>".print_r($target_file);
       	file_put_contents($target_file, file_get_contents($file['tmp_name']));
-        move_uploaded_file($file['tmp_name'], $target_file);
+        move_uploaded_file($file['tmp_name'], $target_file2);
         $get = file_get_contents($target_file);
-        // insertImage($_SESSION['id'], file_get_contents('5dde31519246b.png'));
-        if (file_exists('./saveImages/5dde296ddb8e5.png')){
-          file_put_contents('temp.txt', "mex");
-          insertImage($_SESSION['id'], file_get_contents('5dde296ddb8e5.png'));
-        }else {
-          file_put_contents('temp.txt', "not ex");
-        }
+        // insertImage($_SESSION['id'], file_get_contents($file['tmp_name']));
+        insertImage($_SESSION['id'], $target_file);
+        // if (file_exists('./saveImages/5dde296ddb8e5.png')){
+        //   file_put_contents('temp.txt', "mex");
+        //   insertImage($_SESSION['id'], file_get_contents('5dde296ddb8e5.png'));
+        // }else {
+        //   file_put_contents('temp.txt', "not ex");
+        // }
       	// if (move_uploaded_file($file['tmp_name'], $target_file))
         // {
         //   $sql = "INSERT INTO images(images, userId) VALUES (:images, :userId)";
@@ -124,7 +128,7 @@
       print_r($filename = time()."_".$image);
       $allowed_image_extension = array("png", "jpg", "jpeg");
 
-      $file_extension = pathinfo($_POST["images"], PATHINFO_EXTENSION);
+      $file_extension = pathinfo($_POST["images"], PATHINFO_EXTENSION);*/
       /*if (! file_exists($_FILES["images"]["tmp_name"])) {
         $errorn["imageError"] = "Choose image file to upload.";
       }else */
