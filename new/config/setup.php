@@ -49,7 +49,8 @@
     try {
       $sql = "CREATE TABLE $table_name (
         id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
-        images blob NOT NULL,
+        #images blob NOT NULL,
+        images VARCHAR(255) NOT NULL,
         userId INT(11) UNSIGNED NOT NULL,
         FOREIGN KEY (userId) REFERENCES $new_users(id) ON DELETE CASCADE
       )";
@@ -66,7 +67,8 @@
     try {
       $sql = "CREATE TABLE $table_name (
         id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
-        profile_pic blob NOT NULL,
+        #profile_pic blob NOT NULL,
+        profile_pic VARCHAR(255) NOT NULL,
         userId INT(11) UNSIGNED NOT NULL,
         FOREIGN KEY (userId) REFERENCES $new_users(id) ON DELETE CASCADE
       )";
@@ -108,7 +110,12 @@
         imageId int(11) UNSIGNED NOT NULL,
         userId INT(11) UNSIGNED NOT NULL,
         FOREIGN KEY (imageId) REFERENCES $rel_table (id) ON DELETE CASCADE,
+<<<<<<< HEAD
         FOREIGN KEY (userId) REFERENCES $new_users(id) ON DELETE CASCADE
+=======
+        FOREIGN KEY (userId) REFERENCES $new_users(id) ON DELETE CASCADE,
+        username VARCHAR(255) NOT NULL
+>>>>>>> 6ac3a03b080845bb29254217180332c298cafb66
       )";
       $handle->exec($sql);
       echo "Table $table_name created successfully<br>";

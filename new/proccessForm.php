@@ -1,6 +1,7 @@
 <?php
   // session_start();
   require_once 'imageInsert.php';
+  require_once 'controls.php';
   $error = array();
 
   if (isset($_POST["upload-prof"])) {
@@ -45,33 +46,95 @@
 
     if (count($error) === 0) {
       // require 'imageInsert.php';
-      insertProfileImage($_SESSION['id'], $filename);
+      insertProfileImage($_SESSION['id'], $_FILES['images']['tmp_name']);
     }
   }
+
+
   $errorn = array();
-  if (isset($_POST['imageUpload'])) {
-    $fileinfo = @getimagesize($_FILES["images"]["tmp_name"]);
-    $filename = time()."_".$_FILES["images"]["name"];
-    $allowed_image_extension = array("png", "jpg", "jpeg");
 
-    $file_extension = pathinfo($_FILES["images"]["name"], PATHINFO_EXTENSION);
-    if (! file_exists($_FILES["images"]["tmp_name"])) {
-      $errorn["imageError"] = "Choose image file to upload.";
-    }else if (! in_array($file_extension, $allowed_image_extension)) {
-      $errorn["imageError"] = "Upload valid images. Only PNG and JPEG are allowed.";
-    }else {
-      $img_dir = "saveImages/" . $_FILES["images"]["name"];
-      if (move_uploaded_file($_FILES["images"]["tmp_name"], $img_dir)) {
-        $response["imageSuccess"] = "Image uploaded successfully.<br>";
+
+  if (isset($_POST['imageUpload']) || isset($_POST['post'])) {
+    // print_r($_POST);
+    if (isset($_POST['imageUpload'])) {
+      $fileinfo = @getimagesize($_FILES["images"]["tmp_name"]);
+      $filename = time()."_".$_FILES["images"]["name"];
+      $allowed_image_extension = array("png", "jpg", "jpeg");
+
+      $file_extension = pathinfo($_FILES["images"]["name"], PATHINFO_EXTENSION);
+      if (! file_exists($_FILES["images"]["tmp_name"])) {
+        $errorn["imageError"] = "Choose image file to upload.";
+      }else if (! in_array($file_extension, $allowed_image_extension)) {
+        $errorn["imageError"] = "Upload valid images. Only PNG and JPEG are allowed.";
       }else {
-          $errorn["imageError"] = "Problem in uploading image files.";
+        $img_dir = "saveImages/" . $_FILES["images"]["name"];
+        if (move_uploaded_file($_FILES["images"]["tmp_name"], $img_dir)) {
+          $response["imageSuccess"] = "Image uploaded successfully.<br>";
+        }else {
+            $errorn["imageError"] = "Problem in uploading image files.";
+        }
       }
+
+      if (count($errorn) === 0) {
+        insertImage($_SESSION['id'], $_FILES["images"]["name"]);
+      }
+
+    }else if (isset($_POST['post'])){
+      //  print_r($_POST);
+
+      print_r($FILES);
+        //$filename      = time()."_".uniqid();
+        $filename      = uniqid();
+        $target_file   = $filename;
+      	$target_file2   = "./saveImages/".$filename;
+      	$file          = $_FILES["file"];
+      	$imageFileType = strtolower(pathinfo($file["tmp_name"], PATHINFO_EXTENSION));
+      	$allowed       = array('jpg', 'jpeg', 'gif', 'png', 'tif');
+      	$target_file  .= '.'.explode('/', $file['type'])[1];
+      	$filename	  .= '.'.explode('/', $file['type'])[1];
+
+        echo "----------".print_r($file['tmp_name']);
+        echo ">>>>>>>>>>>".print_r($target_file);
+      	file_put_contents($target_file, file_get_contents($file['tmp_name']));
+        move_uploaded_file($file['tmp_name'], $target_file2);
+        $get = file_get_contents($target_file);
+        // insertImage($_SESSION['id'], file_get_contents($file['tmp_name']));
+        insertImage($_SESSION['id'], $target_file);
+        // if (file_exists('./saveImages/5dde296ddb8e5.png')){
+        //   file_put_contents('temp.txt', "mex");
+        //   insertImage($_SESSION['id'], file_get_contents('5dde296ddb8e5.png'));
+        // }else {
+        //   file_put_contents('temp.txt', "not ex");
+        // }
+      	// if (move_uploaded_file($file['tmp_name'], $target_file))
+        // {
+        //   $sql = "INSERT INTO images(images, userId) VALUES (:images, :userId)";
+        //   $stmt = $handle->prepare($sql);
+        //   $stmt->bindParam(':images', $file['tmp_name']);
+        //   $stmt->bindParam(':userId', $_SESSION['id']);
+        //   $stmt->execute();
+        // }
+        // require_once 'imageInsert.php';
+        // insertImage($_SESSION['id'], $get);
+/*
+      $rename = $_POST["images"];
+      $tmp = explode("base64,", $rename);
+      $mem = base64_decode($tmp[1]);
+
+      $image = imagecreatefromstring($mem);
+      $filename = uniqid();
+      $target = "./saveImages/".$filename.".png";
+      file_put_contents($target, $image);
+      print_r($filename = time()."_".$image);
+      $allowed_image_extension = array("png", "jpg", "jpeg");
+
+      $file_extension = pathinfo($_POST["images"], PATHINFO_EXTENSION);*/
+      /*if (! file_exists($_FILES["images"]["tmp_name"])) {
+        $errorn["imageError"] = "Choose image file to upload.";
+      }else */
+
+
+      // insertImage($_SESSION['id'], $filename);
     }
-
-    if (count($errorn) === 0) {
-      insertImage($_SESSION['id'], $filename);
-
-    }
-
   }
 ?>
