@@ -80,12 +80,15 @@
   function likesTable($table_name, $rel_table)
   {
     global $handle;
+    global $new_users;
     try {
       $sql = "CREATE TABLE $table_name (
         id int(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
         likes int(11) NOT NULL,
         imageId int(11) UNSIGNED NOT NULL,
-        FOREIGN KEY (imageId) REFERENCES $rel_table (id) ON DELETE CASCADE
+        userId INT(11) UNSIGNED NOT NULL,
+        FOREIGN KEY (imageId) REFERENCES $rel_table (id) ON DELETE CASCADE,
+        FOREIGN KEY (userId) REFERENCES $new_users(id) ON DELETE CASCADE
       )";
       $handle->exec($sql);
       echo "Table $table_name created successfully<br>";
@@ -97,12 +100,15 @@
   function commentsTable($table_name, $rel_table)
   {
     global $handle;
+    global $new_users;
     try {
       $sql = "CREATE TABLE $table_name (
         id int(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
         comments VARCHAR(255) NOT NULL,
         imageId int(11) UNSIGNED NOT NULL,
-        FOREIGN KEY (imageId) REFERENCES $rel_table (id) ON DELETE CASCADE
+        userId INT(11) UNSIGNED NOT NULL,
+        FOREIGN KEY (imageId) REFERENCES $rel_table (id) ON DELETE CASCADE,
+        FOREIGN KEY (userId) REFERENCES $new_users(id) ON DELETE CASCADE
       )";
       $handle->exec($sql);
       echo "Table $table_name created successfully<br>";
