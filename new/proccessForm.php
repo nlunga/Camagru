@@ -67,7 +67,8 @@
       }else if (! in_array($file_extension, $allowed_image_extension)) {
         $errorn["imageError"] = "Upload valid images. Only PNG and JPEG are allowed.";
       }else {
-        $img_dir = "saveImages/" . $_FILES["images"]["name"];
+        // $img_dir = "saveImages/" . $_FILES["images"]["name"];
+        $img_dir = $_FILES["images"]["name"];
         if (move_uploaded_file($_FILES["images"]["tmp_name"], $img_dir)) {
           $response["imageSuccess"] = "Image uploaded successfully.<br>";
         }else {
@@ -93,13 +94,23 @@
       	$target_file  .= '.'.explode('/', $file['type'])[1];
       	$filename	  .= '.'.explode('/', $file['type'])[1];
 
-        echo "----------".print_r($file['tmp_name']);
-        echo ">>>>>>>>>>>".print_r($target_file);
-      	file_put_contents($target_file, file_get_contents($file['tmp_name']));
-        move_uploaded_file($file['tmp_name'], $target_file2);
         $get = file_get_contents($target_file);
+        $new = explode('1./',$target_file);
+        $newer = "./saveImages/".$new[0]; // change to $target_file
+
+        // echo "\n\n\n this is the temp name".print_r($file['tmp_name']);
+        // echo "\n\n\n this is target ".print_r($target_file);
+        // echo "\n\n\n this is target 2".print_r($target_file2);
+        // echo "\n\n This is the file type".print_r($file['type'])." \n\n";
+      	file_put_contents($newer, file_get_contents($file['tmp_name']));
+        move_uploaded_file($file['tmp_name'], $newer);
+        $get = file_get_contents($target_file);
+        $new = explode('1./',$target_file);
+        $newer = "./saveImages/".$new[0];
+        echo "\n\n\n this in ".$newer;
+
         // insertImage($_SESSION['id'], file_get_contents($file['tmp_name']));
-        insertImage($_SESSION['id'], $target_file);
+        insertImage($_SESSION['id'], $newer);
         // if (file_exists('./saveImages/5dde296ddb8e5.png')){
         //   file_put_contents('temp.txt', "mex");
         //   insertImage($_SESSION['id'], file_get_contents('5dde296ddb8e5.png'));

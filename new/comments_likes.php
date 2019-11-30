@@ -13,7 +13,7 @@
       while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         echo "<td>";
         $temp = explode("_", $row['images']);
-        echo '<img src="saveImages/' . $temp[1] . '" height="250" width="250" alt="fail">';
+        echo '<img src="' . $row['images'] . '" height="250" width="250" alt="fail">';
         echo "<br>";
         echo "</td><br>";
       }
@@ -22,7 +22,6 @@
     } catch (PDOException $e) {
       echo "Failed to pull image from the database ".$e->getMessage();
     }
-
   }
 
   $userId = "";
@@ -35,13 +34,15 @@
   if (isset($_POST['comment-btn'])) {
     $comment = $_POST['comment'];
     require_once 'commentLikesInsert.php';
-<<<<<<< HEAD
-    getPostUser("new_users", $_GET['userId']);
-    addComment("comments", $id, $comment, $_GET['userId']);
-=======
     $user = getPostUser("new_users", $_GET['userId']);
     addComment("comments", $id, $comment, $_GET['userId'], $user);
->>>>>>> 6ac3a03b080845bb29254217180332c298cafb66
+  }
+  $numOfLikes = "";
+  if (isset($_GET['clicked'])) {
+    $num = 0;
+    require_once 'commentLikesInsert.php';
+    checkNumLikes('likes', $_GET['clicked'], $_GET['id'], $_GET['userId']);
+    $numOfLikes = getLikes('likes', $_GET['id'], $num);
   }
 ?>
 <!DOCTYPE html>
@@ -61,41 +62,45 @@
         padding: 3px;
         text-decoration: none;
         color: black;
-        margin-top: 2px;
         border-radius: 4px;
       }
 
       a:visited{
-        border: 1px solid white;
-        color: white;
+        border: 1px solid green;
+        color: black;
         background-color: green;
+      }
+      
+      .like {
+        padding-top: 5px;
+        padding-bottom: 5px;
+      }
+
+      .form {
+        /* display: none; */
       }
     </style>
   </head>
   <body>
-<<<<<<< HEAD
-    <form class="" action="comments_likes.php?id=<?php echo $_GET['id']; ?>&userId=<?php echo $_GET['userId']?>" method="post">
-      <textarea id="dat" name="comment" rows="1" cols="50"></textarea><br>
-=======
-    <form action="comments_likes.php?id=<?php echo $_GET['id']; ?>&userId=<?php echo $_SESSION['id']?>&clicked=1" method="get">
+    <!-- <form action="comments_likes.php?id=<?php echo $_GET['id']; ?>&userId=<?php echo $_SESSION['id']?>&clicked=1" method="get">
       <input type="submit" value="like">
-    </form><br>
-    <form class="" action="comments_likes.php?id=<?php echo $_GET['id']; ?>&userId=<?php echo $_SESSION['id']?>" method="post">
+    </form><br> -->
+    <div class="like">
+      <a href="comments_likes.php?id=<?php echo $_GET['id']; ?>&userId=<?php echo $_SESSION['id']?>&clicked=1"><?php echo $numOfLikes." "; ?>like</a>
+      <input type="button" id="comment-btn" value="add comment"><br>
+    </div>
+    <form id="form" style="display: none;" action="comments_likes.php?id=<?php echo $_GET['id']; ?>&userId=<?php echo $_SESSION['id']?>" method="post">
       <!-- <a href="comments_likes.php?clicked=1">like</a><br> commentLikesInsert.php?clicked=1-->
       <textarea id="dat" name="comment" rows="2" cols="50" placeholder="any thoughts"></textarea><br>
->>>>>>> 6ac3a03b080845bb29254217180332c298cafb66
       <input type="submit" name="comment-btn" value="post">
     </form>
     <hr>
     <div class="comments">
       <?php
         require_once 'commentLikesInsert.php';
-<<<<<<< HEAD
-        getComment("comments", $id, $_GET['userId'], "new_users");
-=======
         getComment("comments", $id, $_SESSION['id'], "new_users");
->>>>>>> 6ac3a03b080845bb29254217180332c298cafb66
       ?>
     </div>
+<script src="../js/script.js"></script>
   </body>
 </html>

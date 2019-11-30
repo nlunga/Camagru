@@ -1,28 +1,63 @@
 <?php
-<<<<<<< HEAD
-    function addComment($table_name, $imageId, $comment, $userId)
-    {
-      global $handle;
-      try {
-        $sql = "INSERT INTO $table_name (comments, imageId, userId) VALUES (:comments, :imageId, :userId)";
-=======
     function addComment($table_name, $imageId, $comment, $userId, $username)
     {
       global $handle;
       try {
         $sql = "INSERT INTO $table_name (comments, imageId, userId, username) VALUES (:comments, :imageId, :userId, :username)";
->>>>>>> 6ac3a03b080845bb29254217180332c298cafb66
         $stmt = $handle->prepare($sql);
         $stmt->bindParam(':comments', $comment);
         $stmt->bindParam(':imageId', $imageId);
         $stmt->bindParam(':userId', $userId);
-<<<<<<< HEAD
-=======
         $stmt->bindParam(':username', $username);
->>>>>>> 6ac3a03b080845bb29254217180332c298cafb66
         $stmt->execute();
       } catch (PDOException $e) {
-            echo "Unable to insert data ".$e->getMessage();
+          echo "Unable to insert data ".$e->getMessage();
+      }
+    }
+
+    function updateLikes($table_name, $userId)
+    {
+      global $handle;
+      try {
+        $sql = "UPDATE new_users SET likes=0 WHERE userId='$userId'";
+        $handle->exec($sql);
+        unset($_GET['clicked']);
+      } catch (PDOException $e) {
+        echo "Update query Failed ".$e->getMessage();
+      }
+    }
+
+    function checkNumLikes($table_name,$likes, $imageId, $userId)
+    {
+      global $handle;
+      try {
+        $sql = "SELECT * FROM $table_name WHERE userId='$userId' LIMIT 1";
+        $stmt = $handle->prepare($sql);
+        $stmt->execute();
+        $row_count = $stmt->fetchColumn();
+        if ($row_count > 0) {
+          updateLikes($table_name, $userId);
+        }else {
+          // addLike('likes', $_GET['clicked'], $_GET['id'], $_GET['userId']);
+          addLike($table_name, $likes, $imageId, $userId);
+        }
+      } catch (PDOException $e) {
+        echo "Failed to access the Database ".$e->getMessage();
+      }
+    }
+
+    function addLike($table_name, $likes, $imageId, $userId)
+    {
+      global $handle;
+      try {
+        $sql = "INSERT INTO $table_name (likes, imageId, userId) VALUES (:likes, :imageId, :userId)";
+        $stmt = $handle->prepare($sql);
+        $stmt->bindParam(':likes', $likes);
+        $stmt->bindParam(':imageId', $imageId);
+        $stmt->bindParam(':userId', $userId);
+        $stmt->execute();
+      } catch (PDOException $e) {
+          echo "Unable to insert data ".$e->getMessage();
       }
     }
 
@@ -35,10 +70,6 @@
       return $row['username'];
     }
 
-<<<<<<< HEAD
-    
-=======
->>>>>>> 6ac3a03b080845bb29254217180332c298cafb66
     function getComment($table_name, $imageId, $userId, $secTable)
     {
       global $handle;
@@ -47,19 +78,11 @@
         $stmt = $handle->prepare($sql);
         $stmt->execute();
         
-<<<<<<< HEAD
-        $theUser = getPostUser($secTable, $userId);
-        // echo "<table><tr>";
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            // echo "<td>";
-            echo $theUser.": ".$row['comments'];
-=======
         // $theUser = getPostUser($secTable, $userId);
         // echo "<table><tr>";
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             // echo "<td>";
             echo $row['username'].": ".$row['comments'];
->>>>>>> 6ac3a03b080845bb29254217180332c298cafb66
             // echo "</td><br>";
              echo "<br>";
         }
@@ -68,5 +91,21 @@
             echo "Unable to get comment " . $e->getMessage();
       }
 
+    }
+
+    function getLikes($table_name, $imageId, $numOfLikes) {
+      global $handle;
+      try {
+        $sql = "SELECT * FROM $table_name WHERE imageId = '$imageId'";
+        $stmt = $handle->prepare($sql);
+        $stmt->execute();
+        // $numOfLikes = 0;
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+          $numOfLikes += $row['likes'];
+        }
+      } catch (PDOException $e) {
+          echo "Unable to get like " . $e->getMessage();
+      }
+      return $numOfLikes;
     }
 ?>

@@ -15,7 +15,8 @@
   $path = "";
   if (isset($_GET['id'])) {
   $id = $_GET['id'];
-  $path = "saveImages/" . urldecode($_GET['path']);
+  // $path = "saveImages/" . urldecode($_GET['path']);
+  $path = urldecode($_GET['path']);
   function deleteImage($imageId, $table_name) {
     global $handle;
     global $path;

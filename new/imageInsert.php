@@ -69,9 +69,9 @@
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
           echo "<td>";
           $temp = explode("_", $row['images']);
-          echo '<img  src="saveImages/'.$temp[1] . '" height="250" width="250" alt="fail">';
+          echo '<img  src="saveImages/'.$row['images'] . '" height="250" width="250" alt="fail">';
           echo "<br>";
-          ?><a href="delete.php?id=<?php echo $row["id"]; ?>&path=<?php echo $temp[1]; ?>">Delete</a>
+          ?><a href="delete.php?id=<?php echo $row["id"]; ?>&path=<?php echo $row['images']; ?>">Delete</a>
           <?php echo "</td><br>";
         }
         echo "</tr></table>";
@@ -100,13 +100,9 @@
           $temp = explode("_", $row['images']);
           if (isset($_SESSION['id'])) {
             $link = '<a href="comments_likes.php?id='.$dest.'&userId='.$user_id.'">';
-<<<<<<< HEAD
-            echo $link.'<img src="saveImages/' . $temp[1] . '" height="250" width="250" alt="fail"></a>';
-=======
-            echo $link.'<img src="saveImages/' . $row['images'] . '" height="250" width="250" alt="fail"></a>';
->>>>>>> 6ac3a03b080845bb29254217180332c298cafb66
+            echo $link.'<img src="' . $row['images'] . '" height="250" width="250" alt="fail"></a>';
           }else{
-          echo '<img  src="saveImages/'.$row['images'] . '" height="250" width="250" alt="fail">';
+          echo '<img  src="'.$row['images'] . '" height="250" width="250" alt="fail">';
           }
           echo "<br>";
           echo "</td><br>";
