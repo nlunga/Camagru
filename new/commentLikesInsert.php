@@ -20,8 +20,9 @@
       global $handle;
       try {
         $sql = "UPDATE new_users SET likes=0 WHERE userId='$userId'";
-        $handle->exec($sql);
-        unset($_GET['clicked']);
+        $stmt = $handle->prepare($sql);
+        $stmt->execute();
+        // unset($_GET['clicked']);
       } catch (PDOException $e) {
         echo "Update query Failed ".$e->getMessage();
       }
@@ -34,7 +35,7 @@
         $sql = "SELECT * FROM $table_name WHERE userId='$userId' LIMIT 1";
         $stmt = $handle->prepare($sql);
         $stmt->execute();
-        $row_count = $stmt->fetchColumn();
+        $row_count = $stmt->rowCount();
         if ($row_count > 0) {
           updateLikes($table_name, $userId);
         }else {
