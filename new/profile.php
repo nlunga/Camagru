@@ -83,10 +83,6 @@
     <hr>
     <div class="wrapper">
       <div class="userNav">
-        <?php
-          require 'delete.php';
-          //delete_data("images", $handle, $_SESSION['id']);
-        ?>
         <form action="profile.php" method="post" enctype="multipart/form-data">
           <label for="test">Choose Image</label>
           <input type="file" id="test" name="images">

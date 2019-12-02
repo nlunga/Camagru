@@ -98,10 +98,10 @@
         $new = explode('1./',$target_file);
         $newer = "./saveImages/".$new[0]; // change to $target_file
 
-        // echo "\n\n\n this is the temp name".print_r($file['tmp_name']);
-        // echo "\n\n\n this is target ".print_r($target_file);
-        // echo "\n\n\n this is target 2".print_r($target_file2);
-        // echo "\n\n This is the file type".print_r($file['type'])." \n\n";
+        echo "\n\n\n this is the temp name".print_r($file['tmp_name'])."\n\n\n\n";
+        echo "\n\n\n this is target ".print_r($target_file);
+        echo "\n\n\n this is target 2".print_r($target_file2);
+        echo "\n\n This is the file type".print_r($file['type'])." \n\n";
       	file_put_contents($newer, file_get_contents($file['tmp_name']));
         move_uploaded_file($file['tmp_name'], $newer);
         $get = file_get_contents($target_file);

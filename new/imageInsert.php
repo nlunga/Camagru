@@ -29,6 +29,18 @@
     }
   }
 
+  function putStickers($image1, $image2)
+  {
+    list($width, $height) = getimagesize($image2);
+
+    $image1 = imagecreatefromstring(file_get_contents($image1));
+    $image2 = imagecreatefromstring(file_get_contents($image2));
+
+    imagecopymerge($image1, $image2, 0, 0, 0, 0, $width, $height, 100);
+    header('Content-Type: image/png');
+    imagepng($image1);
+  }
+
   function getImage($table_name, $userId)
   {
     global $handle;
@@ -38,6 +50,7 @@
         $stmt = $handle->prepare($sql);
         $stmt->execute();
         echo "<table><tr>";
+        $i = 0;
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
           echo "<td>";
 
@@ -47,7 +60,43 @@
           echo '<img  src="'.$row['images'].'" height="250" width="250" alt="fail">';
           echo "<br>";
           ?><a href="delete.php?id=<?php echo $row["id"]; ?>&path=<?php echo $row['images']; ?>">Delete</a>
+          <input type="button" class="stick" name="sticker" value="Add Stickers" onclick="addSticker(<?php echo $i;?>)" >
+            <div class="sticker-list" id="list<?php echo $i;?>" style="display: none;">
+              <ul>
+                <a href="profile.php?id=<?php $row['id']; ?>"><img src="stickers/0.png" alt="no-control" width="30" height="30"></a>
+                <a href="profile.php?id=<?php $row['id']; ?>"><img src="stickers/1.png" alt="camera sticker" width="30" height="30"></a>
+                <a href="profile.php?id=<?php $row['id']; ?>"><img src="stickers/2.png" alt="space out" width="30" height="30"></a>
+                <a href="profile.php?id=<?php $row['id']; ?>"><img src="stickers/3.jpg" alt="baby groot" width="30" height="30"></a>
+                <a href="profile.php?id=<?php $row['id']; ?>"><img src="stickers/4.png" alt="no bad vibes" width="30" height="30"></a>
+              </ul>
+            </div>
+          <script type="text/javascript">
+            // var addSticker = document.getElementsByClassName('stick')[<?php echo $i;?>];
+            var showSticker = document.getElementsByClassName('sticker-list')
+            //[<?php //echo $i;?>];
+            // var list = document.getElementById('list');
+            //
+            // addSticker.onclick = function (){
+            //   if (/*list.style.display === "none"*/showSticker.style.display === "none") {
+            //      showSticker.style.display = "block";
+            //     // list.style.display = "block";
+            //   }else {
+            //     showSticker.style.display = "none";
+            //     // list.style.display = "none";
+            //   }
+            // };
+            function addSticker(id) {
+              var list = document.getElementById('list'+ id);
+              console.log("Im here");
+              if (list.style.display === 'none') {
+                list.style.display = 'block';
+              }else {
+                list.style.display = 'none';
+              }
+            }
+          </script>
           <?php echo "</td><br>";
+          $i++;
         }
         echo "</tr></table>";
 

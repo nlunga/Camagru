@@ -8,6 +8,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width-device-width, intial-scale=1, shrink-to-fit=no">
     <title></title>
+    <style media="screen">
+  
+    </style>
   </head>
   <body>
     <!-- <form action=""> -->
@@ -24,11 +27,13 @@
         <!--<form class="" action="ft_snapchat.php" method="post"  onsubmit="upload_img();">--><!--- this is to be commented out -->
           <!--<input type="hidden"  id="img_sub" name="images" value="">--><!--- this is to be commented out -->
           <input type="button" id="upload" name="post" value="Upload">
+
       <!--  </form> --><!--- this is to be commented out -->
       </div>
     <!-- </form> -->
     <div id="demo"></div>
-    <canvas id="canvas" name="images" hidden></canvas>
+    <canvas id="canvas" name="images"></canvas>
     <script src="../js/snap.js" type="module"></script>
+
   </body>
 </html>
