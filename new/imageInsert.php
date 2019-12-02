@@ -49,7 +49,8 @@
         $sql = "SELECT * FROM $table_name WHERE userId='$userId'";
         $stmt = $handle->prepare($sql);
         $stmt->execute();
-        echo "<table><tr>";
+        // echo "<table><tr>";
+        echo '<div class="gallery">';
         $i = 0;
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
           echo "<td>";
@@ -98,7 +99,8 @@
           <?php echo "</td><br>";
           $i++;
         }
-        echo "</tr></table>";
+        // echo "</tr></table>";
+        echo "</div>";
 
     } catch (PDOException $e) {
       echo "Failed to pull image from the database ".$e->getMessage();
