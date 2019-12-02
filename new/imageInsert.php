@@ -29,7 +29,7 @@
     }
   }
 
-  function putStickers($image1, $image2)
+  /*function putStickers($image1, $image2)
   {
     list($width, $height) = getimagesize($image2);
 
@@ -39,7 +39,7 @@
     imagecopymerge($image1, $image2, 0, 0, 0, 0, $width, $height, 100);
     header('Content-Type: image/png');
     imagepng($image1);
-  }
+  }*/
 
   function getImage($table_name, $userId)
   {
@@ -63,11 +63,11 @@
           <input type="button" class="stick" name="sticker" value="Add Stickers" onclick="addSticker(<?php echo $i;?>)" >
             <div class="sticker-list" id="list<?php echo $i;?>" style="display: none;">
               <ul>
-                <a href="profile.php?id=<?php $row['id']; ?>"><img src="stickers/0.png" alt="no-control" width="30" height="30"></a>
-                <a href="profile.php?id=<?php $row['id']; ?>"><img src="stickers/1.png" alt="camera sticker" width="30" height="30"></a>
-                <a href="profile.php?id=<?php $row['id']; ?>"><img src="stickers/2.png" alt="space out" width="30" height="30"></a>
-                <a href="profile.php?id=<?php $row['id']; ?>"><img src="stickers/3.jpg" alt="baby groot" width="30" height="30"></a>
-                <a href="profile.php?id=<?php $row['id']; ?>"><img src="stickers/4.png" alt="no bad vibes" width="30" height="30"></a>
+                <a href="stickers.php?id=<?php echo $row['id']; ?>"><img src="stickers/0.png" alt="no-control" width="30" height="30"></a>
+                <a href="stickers.php?id=<?php echo $row['id']; ?>"><img src="stickers/1.png" alt="camera sticker" width="30" height="30"></a>
+                <a href="stickers.php?id=<?php echo $row['id']; ?>"><img src="stickers/2.png" alt="space out" width="30" height="30"></a>
+                <a href="stickers.php?id=<?php echo $row['id']; ?>"><img src="stickers/3.jpg" alt="baby groot" width="30" height="30"></a>
+                <a href="stickers.php?id=<?php echo $row['id']; ?>"><img src="stickers/4.png" alt="no bad vibes" width="30" height="30"></a>
               </ul>
             </div>
           <script type="text/javascript">
