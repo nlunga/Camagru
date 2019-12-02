@@ -40,6 +40,20 @@
         display: none;
       }
 
+      .gallery {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: 1rem;
+        width: 80vw;
+        margin: 3rem 3rem;
+        grid-template-rows: auto;
+      }
+
+      .gallery img{
+        /* width: 100%; */
+        height: auto;
+        /* max-width: 100%; */
+      }
     </style>
   </head>
   <body>
