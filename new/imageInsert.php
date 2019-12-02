@@ -49,8 +49,8 @@
         $sql = "SELECT * FROM $table_name WHERE userId='$userId'";
         $stmt = $handle->prepare($sql);
         $stmt->execute();
-        // echo "<table><tr>";
-        echo '<div class="gallery">';
+        echo "<table><tr>";
+        // echo '<div class="gallery" style=" display : grid; grid-template-columns : 1fr 1fr 1fr; grid-gap: 1rem; width: 80vw; margin :3rem 3rem; grid-template-rows: auto;">';
         $i = 0;
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
           echo "<td>";
@@ -99,8 +99,8 @@
           <?php echo "</td><br>";
           $i++;
         }
-        // echo "</tr></table>";
-        echo "</div>";
+        echo "</tr></table>";
+        // echo "</div>";
 
     } catch (PDOException $e) {
       echo "Failed to pull image from the database ".$e->getMessage();
@@ -143,7 +143,7 @@
         $stmt = $handle->prepare($sql);
         $stmt->execute();
         echo "<table><tr>";
-
+        // echo '<div class="gallery" style=" display : grid; grid-template-columns : 1fr 1fr 1fr; grid-gap: 1rem; width: 80vw; margin :3rem 3rem; grid-template-rows: auto;">';
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
           $dest = $row['id'];
           $user_id = $row['userId'];
@@ -159,6 +159,7 @@
           echo "</td><br>";
         }
         echo "</tr></table>";
+        // echo "</div>";
     } catch (PDOException $e) {
       echo "Failed to pull image from the database ".$e->getMessage();
     }
