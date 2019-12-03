@@ -35,8 +35,9 @@
         $sql = "SELECT * FROM $table_name WHERE userId='$userId' LIMIT 1";
         $stmt = $handle->prepare($sql);
         $stmt->execute();
-        $row_count = $stmt->rowCount();
-        if ($row_count > 0) {
+        // $row_count = $stmt->rowCount();
+        $row_count = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($row_count['likes'] === 1) {
           updateLikes($table_name, $userId);
         }else {
           // addLike('likes', $_GET['clicked'], $_GET['id'], $_GET['userId']);
@@ -78,7 +79,7 @@
         $sql = "SELECT * FROM $table_name WHERE imageId = '$imageId'";
         $stmt = $handle->prepare($sql);
         $stmt->execute();
-        
+
         // $theUser = getPostUser($secTable, $userId);
         // echo "<table><tr>";
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {

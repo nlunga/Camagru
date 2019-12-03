@@ -64,11 +64,9 @@
           <input type="button" class="stick" name="sticker" value="Add Stickers" onclick="addSticker(<?php echo $i;?>)" >
             <div class="sticker-list" id="list<?php echo $i;?>" style="display: none;">
               <ul>
-                <a href="stickers.php?id=<?php echo $row['id']; ?>"><img src="stickers/0.png" alt="no-control" width="30" height="30"></a>
-                <a href="stickers.php?id=<?php echo $row['id']; ?>"><img src="stickers/1.png" alt="camera sticker" width="30" height="30"></a>
-                <a href="stickers.php?id=<?php echo $row['id']; ?>"><img src="stickers/2.png" alt="space out" width="30" height="30"></a>
-                <a href="stickers.php?id=<?php echo $row['id']; ?>"><img src="stickers/3.jpg" alt="baby groot" width="30" height="30"></a>
-                <a href="stickers.php?id=<?php echo $row['id']; ?>"><img src="stickers/4.png" alt="no bad vibes" width="30" height="30"></a>
+                <a href="stickers.php?id=<?php echo $row['id']; ?>&stick=./stickers/1.png"><img src="stickers/1.png" alt="camera sticker" width="30" height="30"></a>
+                <a href="stickers.php?id=<?php echo $row['id']; ?>&stick=./stickers/2.png"><img src="stickers/2.jpeg" alt="space out" width="30" height="30"></a>
+                <a href="stickers.php?id=<?php echo $row['id']; ?>&stick=./stickers/3.jpg"><img src="stickers/3.jpg" alt="baby groot" width="30" height="30"></a>
               </ul>
             </div>
           <script type="text/javascript">
