@@ -139,12 +139,15 @@
     $start_from = ($page - 1) * 05;
 
     try {
+      echo '<style>.grid-container {  display: grid; grid-template-columns: auto auto auto; background-color: #2196F3; padding: 10px;}'.'.grid-item { background-color: rgba(255, 255, 255, 0.8); border: 1px solid rgba(0, 0, 0, 0.8); padding: 20px; font-size: 30px; text-align: center;}</style>'.'<div class="grid-container">'
+      ;
         $sql = "SELECT * FROM $table_name LIMIT $start_from,$num_per_page";
         $stmt = $handle->prepare($sql);
         $stmt->execute();
         // echo "<table><tr>";
         echo '<div class="gallery" style=" display : grid; grid-template-columns : 1fr 1fr 1fr; grid-gap: 1rem; width: 100vw; margin :3rem 3rem; ">';//grid-template-rows: auto; //repeat(auto-fit, minmax(300px, 1fr))
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+          echo '<div class="grid-item">';
           $dest = $row['id'];
           $user_id = $row['userId'];
           // echo "<td>";
@@ -152,12 +155,13 @@
           if (isset($_SESSION['id'])) {
             $link = '<a href="comments_likes.php?id='.$dest.'&userId='.$user_id.'">';
 
-            echo "<div>".$link.'<img src="' . $row['images'] . '" height="250" width="250" alt="fail"></a></div>';
+            echo $link.'<img src="' . $row['images'] . '" height="250" width="250" alt="fail"></a>';
           }else{
           echo '<img  src="'.$row['images'] . '" height="250" width="250" alt="fail">';
           }
-          echo "<br>";
+          // echo "<br>";
           // echo "</td><br>";
+          echo "</div>";
         }
         echo "</div>";
         // echo "</tr></table><br>";
