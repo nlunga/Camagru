@@ -1,5 +1,6 @@
 <?php
   require_once 'imageInsert.php';
+  require_once 'reconnect.php';
 
   function getStickerImage($table_name, $imageId)
   {
@@ -25,18 +26,26 @@
     $image1 = imagecreatefromstring(file_get_contents($image1));
     $image2 = imagecreatefromstring(file_get_contents($image2));
 
-    imagecopymerge($image1, $image2, 0, 0, 0, 0, $width, $height, 100);
+    imagecopymerge($image1, $image2, 450, 0, 0, 0, $width, $height, 100);
     // header('Content-Type: image/png');
+    $check_img = getStickerImage("images", $imageId);
+    if (preg_match('/saveImages/', $check_img)) {
+      $newImage = explode("saveImages/", $check_img);
+      $img =  "3".$newImage[1];
+      ini_set('memory_limit', '-1');
+      imagepng($image1, $img);
+    }else {
+      $img = "3".$image1;
+      ini_set('memory_limit', '256M');
+      imagepng($image1, "3".$image1);
+    }
 
-    $newImage = "3".getStickerImage("images", $imageId);
-    ini_set('memory_limit', '-1');
-    imagepng($image1, $newImage);
-    $newsql = "UPDATE :table SET images=:images WHERE id=:id";
-        // $newsql = "UPDATE images SET images='hello' WHERE id=20";
-    $stmt = $handle->prepare($newsql);
-    $stmt->execute([":table"=>$table_name, ":images"=>$newImage, ":id"=>$imageId]);
-      // $stmt->execute();
-      // header('location: profile.php');
+   // $newsql = "UPDATE :table SET images=:images WHERE id=:id";
+        $newsql = "UPDATE images SET images='$img' WHERE id='$imageId'";
+   $stmt = $handle->prepare($newsql);
+   // $stmt->execute([":table"=>$table_name, ":images"=>$newImage, ":id"=>$imageId]);
+      $stmt->execute();
+      header('location: profile.php');
 
   }
   $id = "";

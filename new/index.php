@@ -6,6 +6,12 @@
     verifyUser($token);
   }
 
+  if (isset($_GET['page'])) {
+    $page = $_GET['page'];
+  }else {
+    $page = 1;
+  }
+
   if (isset($_GET['password-token'])) {
     $passwordToken = $_GET['password-token'];
     resetPassword($passwordToken);
@@ -41,7 +47,7 @@
     <div id="container">
       <?php
         require_once 'imageInsert.php';
-        publicImage("images");
+        publicImage("images", $page);
       ?>
     </div>
   </body>

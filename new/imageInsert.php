@@ -49,11 +49,11 @@
         $sql = "SELECT * FROM $table_name WHERE userId='$userId'";
         $stmt = $handle->prepare($sql);
         $stmt->execute();
-        echo "<table><tr>";
+        echo "<table>";
         // echo '<div class="gallery" style=" display : grid; grid-template-columns : 1fr 1fr 1fr; grid-gap: 1rem; width: 80vw; margin :3rem 3rem; grid-template-rows: auto;">';
         $i = 0;
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-          echo "<td>";
+          echo "<tr><td>";
 
           //$temp = explode("_", $row['images']);
           //echo '<img  src="saveImages/'.$temp[1] . '" height="250" width="250" alt="fail">';
@@ -65,7 +65,7 @@
             <div class="sticker-list" id="list<?php echo $i;?>" style="display: none;">
               <ul>
                 <a href="stickers.php?id=<?php echo $row['id']; ?>&stick=./stickers/1.png"><img src="stickers/1.png" alt="camera sticker" width="30" height="30"></a>
-                <a href="stickers.php?id=<?php echo $row['id']; ?>&stick=./stickers/2.png"><img src="stickers/2.jpeg" alt="space out" width="30" height="30"></a>
+                <a href="stickers.php?id=<?php echo $row['id']; ?>&stick=./stickers/2.jpeg"><img src="stickers/2.jpeg" alt="space out" width="30" height="30"></a>
                 <a href="stickers.php?id=<?php echo $row['id']; ?>&stick=./stickers/3.jpg"><img src="stickers/3.jpg" alt="baby groot" width="30" height="30"></a>
               </ul>
             </div>
@@ -94,10 +94,10 @@
               }
             }
           </script>
-          <?php echo "</td><br>";
+          <?php echo "</td></tr><br>";
           $i++;
         }
-        echo "</tr></table>";
+        echo "</table>";
         // echo "</div>";
 
     } catch (PDOException $e) {
@@ -131,33 +131,57 @@
 
   }
 
-  function publicImage($table_name)
+  function publicImage($table_name, $page)
   {
     global $handle;
     $dest = "";
+    $num_per_page = 05;
+    $start_from = ($page - 1) * 05;
 
     try {
-        $sql = "SELECT * FROM $table_name";
+        $sql = "SELECT * FROM $table_name LIMIT $start_from,$num_per_page";
         $stmt = $handle->prepare($sql);
         $stmt->execute();
-        echo "<table><tr>";
-        // echo '<div class="gallery" style=" display : grid; grid-template-columns : 1fr 1fr 1fr; grid-gap: 1rem; width: 80vw; margin :3rem 3rem; grid-template-rows: auto;">';
+        // echo "<table><tr>";
+        echo '<div class="gallery" style=" display : grid; grid-template-columns : 1fr 1fr 1fr; grid-gap: 1rem; width: 100vw; margin :3rem 3rem; ">';//grid-template-rows: auto; //repeat(auto-fit, minmax(300px, 1fr))
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
           $dest = $row['id'];
           $user_id = $row['userId'];
-          echo "<td>";
+          // echo "<td>";
           $temp = explode("_", $row['images']);
           if (isset($_SESSION['id'])) {
             $link = '<a href="comments_likes.php?id='.$dest.'&userId='.$user_id.'">';
-            echo $link.'<img src="' . $row['images'] . '" height="250" width="250" alt="fail"></a>';
+
+            echo "<div>".$link.'<img src="' . $row['images'] . '" height="250" width="250" alt="fail"></a></div>';
           }else{
           echo '<img  src="'.$row['images'] . '" height="250" width="250" alt="fail">';
           }
           echo "<br>";
-          echo "</td><br>";
+          // echo "</td><br>";
         }
-        echo "</tr></table>";
-        // echo "</div>";
+        echo "</div>";
+        // echo "</tr></table><br>";
+        echo "<div>";
+
+        $sql2 = "SELECT * FROM $table_name";
+        $stmt = $handle->prepare($sql2);
+        $stmt->execute();
+        $count = count($stmt->fetchAll(PDO::FETCH_BOTH));
+
+        $total_page = ceil($count/$num_per_page);
+        $prev = "previous";
+        $next = "next";
+        echo "<div>";
+        if ($page>1) {
+          echo '<a href="index.php?page="'.($page-1).'" style="padding: 3px; border 1px solid red; border-radius: 4px;">'.$prev.'</a>';
+        }
+        for ($i=1; $i< $total_page ; $i++) {
+          echo '<a href="index.php?page="'.$i.'" style="padding: 3px; border 1px solid red; border-radius: 4px;">'.$i.'</a>';
+        }
+        if ($i>$page) {
+          echo '<a href="index.php?page="'.($page+1).'" style="padding: 3px; border 1px solid red; border-radius: 4px;">'.$next.'</a>';
+        }
+        echo "</div>";
     } catch (PDOException $e) {
       echo "Failed to pull image from the database ".$e->getMessage();
     }
