@@ -38,10 +38,10 @@
   }
 
   if (isset($_POST['submit'])) {
-    $username = $_POST['username'];
-    $userEmail = $_POST['user-email'];
-    $password = $_POST['passwd'];
-    $confPass = $_POST['confPasswd'];
+    $username = trim($_POST['username']);
+    $userEmail = trim($_POST['user-email']);
+    $password = trim($_POST['passwd']);
+    $confPass = trim($_POST['confPasswd']);
 
     if (empty($username)) {
       $error['UserNameError'] = "Please enter a username";

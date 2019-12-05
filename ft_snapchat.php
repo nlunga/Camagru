@@ -33,7 +33,7 @@
     <!-- </form> -->
     <div id="demo"></div>
     <canvas id="canvas" name="images" hidden></canvas>
-    <script src="../js/snap.js" type="module"></script>
+    <script src="js/snap.js" type="module"></script>
 
   </body>
 </html>

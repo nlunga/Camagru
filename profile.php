@@ -87,7 +87,8 @@
           <label for="test">Choose Image</label>
           <input type="file" id="test" name="images">
           <input type="submit" name="imageUpload" value="Upload Image">
-          <a href="ft_snapchat.php">take a pic</a>
+          <a href="ft_snapchat.php"><img src="resources/take2.jpg" alt=""></a>
+          <a href="edit.php">Edit info</a>
         </form>
         <hr>
         <div class="gallery">

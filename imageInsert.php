@@ -165,7 +165,31 @@
         }
         echo "</div>";
         // echo "</tr></table><br>";
-        echo "<div>";
+        // echo "<div>";
+
+        // $sql2 = "SELECT * FROM $table_name";
+        // $stmt = $handle->prepare($sql2);
+        // $stmt->execute();
+        // $count = count($stmt->fetchAll(PDO::FETCH_BOTH));
+
+        // $total_page = ceil($count/$num_per_page);
+        // $prev = "previous";
+        // $next = "next";
+        // echo "<div>";
+        // if ($page>1) {
+        //   echo '<a href="index.php?page="'.($page-1).'" style="padding: 3px; border 1px solid red; border-radius: 4px;">'.$prev.'</a>';
+        // }
+        // for ($i=1; $i< $total_page ; $i++) {
+        //   echo '<a href="index.php?page="'.$i.'" style="padding: 3px; border 1px solid red; border-radius: 4px;">'.$i.'</a>';
+        // }
+        // if ($i>$page) {
+        //   echo '<a href="index.php?page="'.($page+1).'" style="padding: 3px; border 1px solid red; border-radius: 4px;">'.$next.'</a>';
+        // }
+        // echo "</div>";
+    } catch (PDOException $e) {
+      echo "Failed to pull image from the database ".$e->getMessage();
+    }
+    echo "<div>";
 
         $sql2 = "SELECT * FROM $table_name";
         $stmt = $handle->prepare($sql2);
@@ -177,18 +201,14 @@
         $next = "next";
         echo "<div>";
         if ($page>1) {
-          echo '<a href="index.php?page="'.($page-1).'" style="padding: 3px; border 1px solid red; border-radius: 4px;">'.$prev.'</a>';
+          echo '<a href="index.php?page='.($page-1).'" style="padding: 3px; border 1px solid red; border-radius: 4px;">'.$prev.'</a>';
         }
         for ($i=1; $i< $total_page ; $i++) {
-          echo '<a href="index.php?page="'.$i.'" style="padding: 3px; border 1px solid red; border-radius: 4px;">'.$i.'</a>';
+          echo '<a href="index.php?page='.$i.'" style="padding: 3px; border 1px solid red; border-radius: 4px;">'.$i.'</a>';
         }
         if ($i>$page) {
-          echo '<a href="index.php?page="'.($page+1).'" style="padding: 3px; border 1px solid red; border-radius: 4px;">'.$next.'</a>';
+          echo '<a href="index.php?page='.($page+1).'" style="padding: 3px; border 1px solid red; border-radius: 4px;">'.$next.'</a>';
         }
         echo "</div>";
-    } catch (PDOException $e) {
-      echo "Failed to pull image from the database ".$e->getMessage();
-    }
-
   }
 ?>

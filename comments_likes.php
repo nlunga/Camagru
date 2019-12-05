@@ -101,6 +101,6 @@
         getComment("comments", $id, $_SESSION['id'], "new_users");
       ?>
     </div>
-<script src="../js/script.js"></script>
+<script src="js/script.js"></script>
   </body>
 </html>
