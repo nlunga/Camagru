@@ -18,15 +18,13 @@
               echo "<li>" . $errors . "</li><br>";
             }
             echo "</ul>";
-          }else {
-            //echo "none";
           }
         ?>
       </div>
       <form class="sign" action="signup.php" method="POST">
-        <input type="text" name="username" value="" placeholder="Prefered username"><br>
-        <input type="email" name="user-email" value="" placeholder="Email"><br>
-        <input type="password" name="passwd" value="" placeholder="Password"><br>
+        <input type="text" name="username" value="<?php echo $username; ?>" placeholder="Prefered username"><br>
+        <input type="email" name="user-email" value="<?php echo $userEmail; ?>" placeholder="Email"><br>
+        <input type="password" name="passwd" value=""  placeholder="Password"><br>
         <input type="password" name="confPasswd" value="" placeholder="Confirm Password"><br>
         <input type="submit" name="submit" value="Sign up"><br>
         <p>Have an account? <a href="login.php">Log in</a></p>
