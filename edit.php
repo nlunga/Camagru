@@ -35,6 +35,17 @@
         return $row['password'];
     }
 
+    function notify($note, $id) {
+        global $handle;
+        try {
+            $newsql = "UPDATE new_users SET notifications='$note' WHERE id='$id'";
+            $stmt = $handle->prepare($newsql);
+            $stmt->execute();
+        } catch (PDOExeption $e) {
+            echo "Unable to access the database ".$e->getMessage();
+        }
+    }
+
     if (isset($_POST['username-btn'])) {
         $username = trim($_POST['username']);
         if (empty($username)) {
@@ -104,6 +115,13 @@
                 // exit();
             }
         }
+    }
+
+    $notification = "";
+    if (isset($_POST['notification-btn']))
+    {
+        $notification = $_POST['notification'];
+        notify($notification, $_SESSION['id']);
     }
 ?>
 <!DOCTYPE html>
@@ -175,6 +193,13 @@
             <label for="confPass">Confirm Password: </label><br>
             <input style="margin-left: 50px" type="password" name="confPass" id="confPass" value="" placeholder="Confirm Password">
             <input type="submit" name="pass-btn" value="Update"><br>
+        </form>
+
+        <form action="edit.php" method="post">
+            <label for="">Notifications: </label>
+            yes<input <?php if ($notification == 'yes') echo 'checked="checked"'; ?> type="radio" name="notification" value="yes">
+            no<input <?php if ($notification == 'no') echo 'checked="checked"'; ?> type="radio" name="notification" value="no">
+            <input type="submit" name="notification-btn" value="Update">
         </form>
         
     </fieldset>

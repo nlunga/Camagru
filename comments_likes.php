@@ -55,6 +55,22 @@
     checkNumLikes('likes', $_GET['clicked'], $_GET['id'], $_GET['userId']);
     $numOfLikes = getLikes('likes', $_GET['id'], $num);
   }
+
+  function getLikes($table_name, $imageId, $numOfLikes) {
+    global $handle;
+    try {
+      $sql = "SELECT * FROM $table_name WHERE imageId = '$imageId'";
+      $stmt = $handle->prepare($sql);
+      $stmt->execute();
+      // $numOfLikes = 0;
+      while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $numOfLikes += $row['likes'];
+      }
+    } catch (PDOException $e) {
+        echo "Unable to get like " . $e->getMessage();
+    }
+    return $numOfLikes;
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -125,7 +141,12 @@
       <input type="submit" value="like">
     </form><br> -->
     <div class="like">
-      <a class="new" href="comments_likes.php?id=<?php echo $_GET['id']; ?>&userId=<?php echo $_SESSION['id']?>&clicked=1"><?php echo $numOfLikes." "; ?>like</a>
+      <?php if(getLikes('likes', $_GET['id'], 0) > 0):?>
+      <a class="new" href="comments_likes.php?id=<?php echo $_GET['id']; ?>&userId=<?php echo $_SESSION['id']?>&clicked=1"><?php echo getLikes('likes', $_GET['id'], 0)/*$numOfLikes*/." "; ?>like</a>
+      <?php endif;?>
+      <?php if(getLikes('likes', $_GET['id'], 0) == 0):?>
+        <a class="new" href="comments_likes.php?id=<?php echo $_GET['id']; ?>&userId=<?php echo $_SESSION['id']?>&clicked=1">like</a>
+      <?php endif;?>
       <input type="button" id="comment-btn" value="add comment"><br>
     </div>
     <form id="form" style="display: none;" action="comments_likes.php?id=<?php echo $_GET['id']; ?>&userId=<?php echo $_SESSION['id']?>" method="post">

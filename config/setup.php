@@ -34,7 +34,8 @@
         email VARCHAR(255) NOT NULL UNIQUE,
         password VARCHAR(255) NOT NULL,
         verified TINYINT(4) NOT NULL,
-        token VARCHAR(100) NOT NULL
+        token VARCHAR(100) NOT NULL,
+        notifications VARCHAR(100) NOT NULL
       )";
       $handle->exec($sql);
       echo "Table $table_name created successfully<br>";

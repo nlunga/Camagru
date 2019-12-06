@@ -6,13 +6,15 @@
         $HashedPassword = password_hash($userpass, PASSWORD_DEFAULT);
         $token = bin2hex(random_bytes(50));
         $verified = 0;
+        $note = "yes";
 
-        $stmt = $handle->prepare("INSERT INTO new_users (username, email, password, verified, token) VALUES (:username, :email, :password, :verified, :token)");
+        $stmt = $handle->prepare("INSERT INTO new_users (username, email, password, verified, token, notifications) VALUES (:username, :email, :password, :verified, :token, :notifications)");
         $stmt->bindParam(':username', $userdata);
         $stmt->bindParam(':email', $emaildata);
         $stmt->bindParam(':password', $HashedPassword);
         $stmt->bindParam(':verified', $verified);
         $stmt->bindParam(':token', $token);
+        $stmt->bindParam(':notifications', $note);
 
         //$stmt->execute();
         if ($stmt->execute()) {

@@ -1,5 +1,19 @@
 <?php
     require_once 'reconnect.php';
+    require_once 'controls.php';
+
+    function getNote($id){
+      global $handle;
+      try {
+        $sql = "SELECT * FROM new_users WHERE id='$id'";
+        $stmt = $handle->prepare($sql);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+      } catch (PDOExeption $e) {
+          echo "Unable to access the database ".$e->getMessage();
+      }
+      return $row['notifications'];
+    }
 
     function sendliked($userMail, $subject, $message)
     {
@@ -28,7 +42,7 @@
         return $row['username'];
     }
 
-    function getImage($table_name, $userId) {
+    function getImaged($table_name, $userId) {
         global $handle;
         $sql = "SELECT * FROM $table_name WHERE id='$userId' LIMIT 1";
         $stmt = $handle->prepare($sql);
@@ -72,12 +86,20 @@
 
         if (isset($row_count['id'])) {
             updateLikes($table_name, $userId, $imageId);
+            $liker = getUsername('new_users', $_SESSION['id']);
+            $liked = getImaged('images', $row_count['imageId']);
+            $sender = getMail('new_users', $liked);
+          
+            if (getNote($liked) == "yes") {
+              sendliked("xonahe3984@topmail2.com", "Unlike. ", "$liker Likes yopur image ");
+            }
         }else {
           addLike($table_name, $likes, $imageId, $userId);
-          $liker = getUsername('new_users', $row_count['userId']);
-          $liked = getImage('images', $row_count['imagesId']);
+          $liker = getUsername('new_users', $_SESSION['id']);
+          $liked = getImaged('images', $row_count['imagesId']);
           $sender = getMail('new_users', $liked);
-          sendliked($sender, "You got a new like. ", "$liker Likes yopur image ");
+          echo $sender;
+          // sendliked("xonahe3984@topmail2.com", "You got a new like. ", "$liker Likes yopur image ");
         }
       } catch (PDOException $e) {
         echo "Failed to access the Database ".$e->getMessage();

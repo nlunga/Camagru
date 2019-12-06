@@ -15,6 +15,46 @@
       }
     }
 
+    function getNote($id){
+      global $handle;
+      try {
+        $sql = "SELECT * FROM new_users WHERE id='$id'";
+        $stmt = $handle->prepare($sql);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+      } catch (PDOExeption $e) {
+          echo "Unable to access the database ".$e->getMessage();
+      }
+      return $row['notifications'];
+    }
+
+    function getUsernamed($table_name, $userId) {
+      global $handle;
+      $sql = "SELECT * FROM $table_name WHERE id='$userId' LIMIT 1";
+      $stmt = $handle->prepare($sql);
+      $stmt->execute();
+      $row = $stmt->fetch(PDO::FETCH_ASSOC);
+      return $row['username'];
+    }
+
+    function getImaged($table_name, $imageId) {
+      global $handle;
+      $sql = "SELECT * FROM $table_name WHERE id='$imageId' LIMIT 1";
+      $stmt = $handle->prepare($sql);
+      $stmt->execute();
+      $row = $stmt->fetch(PDO::FETCH_ASSOC);
+      return $row['userId'];
+    }
+
+    function getMail($table_name, $userId) {
+      global $handle;
+      $sql = "SELECT * FROM $table_name WHERE id='$userId' LIMIT 1";
+      $stmt = $handle->prepare($sql);
+      $stmt->execute();
+      $row = $stmt->fetch(PDO::FETCH_ASSOC);
+      return $row['email'];
+    }
+
     function updateLikes($table_name, $userId, $imageId, $like)
     {
       global $handle;
@@ -26,6 +66,11 @@
       } catch (PDOException $e) {
         echo "Update query Failed ".$e->getMessage();
       }
+    }
+
+    function sendliked($userMail, $subject, $message)
+    {
+        mail($userMail, $subject, $message);
     }
 
     function checkNumLikes($table_name,$likes, $imageId, $userId)
@@ -41,9 +86,21 @@
             if ($row_count['likes'] == 1) {
               $like = 0;
               updateLikes($table_name, $userId, $imageId, $like);
+              $liker = getUsernamed('new_users', $_SESSION['id']);
+              $liked = getImaged('images', $row_count['imageId']);
+              $sender = getMail('new_users', getImaged('images', $row_count['imageId']));
+              if (getNote($liked) == "yes") {
+                sendliked($sender, "Unlike. ", "$liker unliked your image ");
+              }
             }else {
               $like = 1;
               updateLikes($table_name, $userId, $imageId, $like);
+              $liker = getUsernamed('new_users', $_SESSION['id']);
+              getImaged('images', $row_count['imageId']);
+              $sender = getMail('new_users', getImaged('images', $row_count['imageId']));
+              if (getNote($liked) == "yes") {
+                sendliked($sender, "You have a new like", "$liker Likes your image ");
+              }
             }
         }else {
           addLike($table_name, $likes, $imageId, $userId);
@@ -100,19 +157,19 @@
 
     }
 
-    function getLikes($table_name, $imageId, $numOfLikes) {
-      global $handle;
-      try {
-        $sql = "SELECT * FROM $table_name WHERE imageId = '$imageId'";
-        $stmt = $handle->prepare($sql);
-        $stmt->execute();
-        // $numOfLikes = 0;
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-          $numOfLikes += $row['likes'];
-        }
-      } catch (PDOException $e) {
-          echo "Unable to get like " . $e->getMessage();
-      }
-      return $numOfLikes;
-    }
+    // function getLikes($table_name, $imageId, $numOfLikes) {
+    //   global $handle;
+    //   try {
+    //     $sql = "SELECT * FROM $table_name WHERE imageId = '$imageId'";
+    //     $stmt = $handle->prepare($sql);
+    //     $stmt->execute();
+    //     // $numOfLikes = 0;
+    //     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    //       $numOfLikes += $row['likes'];
+    //     }
+    //   } catch (PDOException $e) {
+    //       echo "Unable to get like " . $e->getMessage();
+    //   }
+    //   return $numOfLikes;
+    // }
 ?>
