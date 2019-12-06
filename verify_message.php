@@ -21,9 +21,38 @@
   <head>
     <meta charset="utf-8">
     <title><?php echo $_SESSION['username'];?></title>
+    <style>
+      a {
+        text-decoration: none;
+      }
+
+      .header {
+        margin: 0;
+        padding: 3px;
+        text-align: center;
+        background: #1abc9c;
+        color: white;
+      }
+
+      body{
+        margin: 0;
+      }
+
+      .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: red;
+        color: white;
+        text-align: center;
+      }
+    </style>
   </head>
   <body>
-    <h2>Camagru</h2>
+    <div class="header">
+      <a href="index.php"><h1>Camagru</h1></a>
+    </div>
     <?php if (isset($_SESSION['message'])): ?>
       <?php
         echo $_SESSION['message'];
@@ -45,5 +74,8 @@
       </form>
     <?php endif; ?>
     <p>You are logged in as <?php echo $_SESSION['username']; ?> <a href="index.php?logout=1">Log out</a> </p>
+    <div class="footer">
+      <p>@nlunga 2019</p>
+    </div>
   </body>
 </html>

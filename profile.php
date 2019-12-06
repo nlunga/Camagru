@@ -40,6 +40,20 @@
         display: none;
       }
 
+      a {
+        text-decoration: none;
+      }
+
+      .header {
+        background-color: #eafbea;
+        width: 100%;
+        height: 75px;
+        border: 1px solid black;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
       .gallery {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
@@ -54,10 +68,26 @@
         height: auto;
         /* max-width: 100%; */
       }
+      
+      body{
+        margin: 0;
+      }
+
+      .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: red;
+        color: white;
+        text-align: center;
+      }
     </style>
   </head>
   <body>
-    <a href="index.php"><h1>Camagru</h1></a>
+    <div class="header">
+      <a href="index.php"><h1>Camagru</h1></a>
+    </div>
     <div class="prof">
       <form class="prof" action="profile.php" method="post" enctype="multipart/form-data">
       <div class="error_message">
@@ -113,5 +143,8 @@
         }
       }
     </script>
+    <div class="footer">
+      <p>@nlunga 2019</p>
+    </div>
   </body>
 </html>

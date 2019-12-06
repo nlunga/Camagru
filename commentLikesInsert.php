@@ -15,11 +15,11 @@
       }
     }
 
-    function updateLikes($table_name, $userId)
+    function updateLikes($table_name, $userId, $imageId, $like)
     {
       global $handle;
       try {
-        $sql = "UPDATE new_users SET likes=0 WHERE userId='$userId'";
+        $sql = "UPDATE likes SET likes=$like WHERE userId='$userId' AND imageId='$imageId'";
         $stmt = $handle->prepare($sql);
         $stmt->execute();
         // unset($_GET['clicked']);
@@ -32,15 +32,20 @@
     {
       global $handle;
       try {
-        $sql = "SELECT * FROM $table_name WHERE userId='$userId' LIMIT 1";
+        $sql = "SELECT * FROM $table_name WHERE userId='$userId' AND imageId='$imageId' LIMIT 1";
         $stmt = $handle->prepare($sql);
         $stmt->execute();
-        // $row_count = $stmt->rowCount();
         $row_count = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($row_count['likes'] === 1) {
-          updateLikes($table_name, $userId);
+
+        if (isset($row_count['id'])) {
+            if ($row_count['likes'] == 1) {
+              $like = 0;
+              updateLikes($table_name, $userId, $imageId, $like);
+            }else {
+              $like = 1;
+              updateLikes($table_name, $userId, $imageId, $like);
+            }
         }else {
-          // addLike('likes', $_GET['clicked'], $_GET['id'], $_GET['userId']);
           addLike($table_name, $likes, $imageId, $userId);
         }
       } catch (PDOException $e) {

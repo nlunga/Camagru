@@ -1,6 +1,17 @@
 <?php
   require_once 'reconnect.php';
   require_once 'controls.php';
+  echo '<div class="header"><a href="index.php"><h1>Camagru</h1></a></div>';
+  
+  function getUsername($table_name, $userId) {
+    global $handle;
+    $sql = "SELECT * FROM $table_name WHERE id='$userId' LIMIT 1";
+    $stmt = $handle->prepare($sql);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $row['username'];
+  }
+
   function getImageInfo($table_name, $getId)
   {
     global $handle;
@@ -32,7 +43,7 @@
   }
   $comment = "";
   if (isset($_POST['comment-btn'])) {
-    $comment = $_POST['comment'];
+    $comment = test_user_input($_POST['comment']);
     require_once 'commentLikesInsert.php';
     $user = getPostUser("new_users", $_GET['userId']);
     addComment("comments", $id, $comment, $_GET['userId'], $user);
@@ -57,7 +68,7 @@
         margin-top: 2px;
       }
 
-      a{
+      .new{
         border: 1px solid green;
         padding: 3px;
         text-decoration: none;
@@ -65,7 +76,7 @@
         border-radius: 4px;
       }
 
-      a:visited{
+      .new:visited{
         border: 1px solid green;
         color: black;
         background-color: green;
@@ -79,6 +90,34 @@
       .form {
         /* display: none; */
       }
+      
+      a {
+        text-decoration: none;
+      }
+
+      body{
+        margin: 0;
+      }
+
+      .header {
+        background-color: #eafbea;
+        width: 100%;
+        height: 75px;
+        border: 1px solid black;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: red;
+        color: white;
+        text-align: center;
+      }
     </style>
   </head>
   <body>
@@ -86,7 +125,7 @@
       <input type="submit" value="like">
     </form><br> -->
     <div class="like">
-      <a href="comments_likes.php?id=<?php echo $_GET['id']; ?>&userId=<?php echo $_SESSION['id']?>&clicked=1"><?php echo $numOfLikes." "; ?>like</a>
+      <a class="new" href="comments_likes.php?id=<?php echo $_GET['id']; ?>&userId=<?php echo $_SESSION['id']?>&clicked=1"><?php echo $numOfLikes." "; ?>like</a>
       <input type="button" id="comment-btn" value="add comment"><br>
     </div>
     <form id="form" style="display: none;" action="comments_likes.php?id=<?php echo $_GET['id']; ?>&userId=<?php echo $_SESSION['id']?>" method="post">
@@ -101,6 +140,9 @@
         getComment("comments", $id, $_SESSION['id'], "new_users");
       ?>
     </div>
-<script src="js/script.js"></script>
+    <div class="footer">
+      <p>@nlunga 2019</p>
+    </div>
+    <script src="js/script.js"></script>
   </body>
 </html>

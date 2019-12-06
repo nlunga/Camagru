@@ -7,7 +7,8 @@
   $userEmail = "";
 
   function test_user_input ($data) {
-    return $data;
+    $newdata = htmlspecialchars((strip_tags(trim($data))));
+    return $newdata;
   }
 
 /*function duplicateValidation($data, $table_name, $check, $checkValue){
@@ -97,8 +98,8 @@
   // when user logs in.
   $username_email = "";
   if (isset($_POST['login-btn'])) {
-    $username_email = $_POST['username-email'];
-    $passlog = $_POST['log-passwd'];
+    $username_email = test_user_input($_POST['username-email']);
+    $passlog = test_user_input($_POST['log-passwd']);
     if (empty($username_email)) {
       $error['UserNameError'] = "Please enter a username";
     }
@@ -180,7 +181,7 @@
   //forgot password
   $email = "";
   if (isset($_POST['recover-btn'])) {
-    $email = $_POST['recover-email'];
+    $email = test_user_input($_POST['recover-email']);
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
       $error['EmailError'] = "Email address is invalid";
     }
@@ -201,8 +202,8 @@
   }
 
   if (isset($_POST['resetPassword-btn'])) {
-    $password = $_POST['passwd'];
-    $passwordConf = $_POST['con-passwd'];
+    $password = test_user_input($_POST['passwd']);
+    $passwordConf = test_user_input($_POST['con-passwd']);
 
     if (empty($password) || empty($passwordConf)) {
       $error['PasswordError'] = "Please enter a password";

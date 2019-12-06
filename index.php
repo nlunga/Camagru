@@ -27,6 +27,17 @@
 		<title>Camagru</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="css/style.css" media="all" />
+    <style>
+      .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: red;
+        color: white;
+        text-align: center;
+      }
+    </style>
   </head>
   <body>
     <div id="header">
@@ -49,6 +60,9 @@
         require_once 'imageInsert.php';
         publicImage("images", $page);
       ?>
+    </div>
+    <div class="footer">
+      <p>@nlunga 2019</p>
     </div>
   </body>
 </html>

@@ -8,11 +8,40 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width-device-width, intial-scale=1, shrink-to-fit=no">
     <title></title>
-    <style media="screen">
+    <style>
+      a {
+        text-decoration: none;
+      }
 
+      .header {
+        background-color: #eafbea;
+        width: 100%;
+        height: 75px;
+        border: 1px solid black;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      
+      body{
+        margin: 0;
+      }
+
+      .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: red;
+        color: white;
+        text-align: center;
+      }
     </style>
   </head>
   <body>
+    <div class="header">
+      <a href="index.php"><h1>Camagru</h1></a>
+    </div>
     <!-- <form action=""> -->
       <div class="video-wrap">
         <div class="">
@@ -34,6 +63,8 @@
     <div id="demo"></div>
     <canvas id="canvas" name="images" hidden></canvas>
     <script src="js/snap.js" type="module"></script>
-
+    <div class="footer">
+      <p>@nlunga 2019</p>
+    </div>
   </body>
 </html>
