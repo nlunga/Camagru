@@ -61,11 +61,11 @@
       <!--  </form> --><!--- this is to be commented out -->
       </div>
     <!-- </form> -->
-    <div id="demo"></div>
+    <!-- <div id="demo"></div> -->
     <canvas id="canvas" name="images" hidden></canvas>
-    <script src="js/snap.js" type="module"></script>
     <div class="footer">
       <p>@nlunga 2019</p>
     </div>
+    <script src="js/snap.js" type="module"></script>
   </body>
 </html>

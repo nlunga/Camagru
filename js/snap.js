@@ -49,11 +49,13 @@ function uploadFile() {
 
     form.append('file', blob);
     form.append('post', 'Upload');
+    // form.append('ajaxupload', 'true');
     // 2. Configure it: GET-request for the URL /article/.../load
     xhr.open('POST', './proccessForm.php');
 
     // 3. Send the request over the network
-    xhr.send(form);
+     xhr.send(form);
+
 
     // 4. This will be called after the response is received
     xhr.onload = function() {

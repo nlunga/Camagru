@@ -1,5 +1,4 @@
 <?php
-  echo "in delete<br>";
   require_once 'reconnect.php';
 
   function delete_data($table_name, $handle, $user_id)
