@@ -1,7 +1,7 @@
 <?php
   require_once 'reconnect.php';
   require_once 'controls.php';
-  echo '<div class="header"><a href="index.php"><h1>Camagru</h1></a></div>';
+  echo '<div class="header"><a href="index.php"><h1>Camagru</h1></a> <a class="tab" href="comments_likes.php?logout=1">Log out</a></div>';
   
   function getUsername($table_name, $userId) {
     global $handle;

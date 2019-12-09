@@ -6,7 +6,7 @@
         $HashedPassword = password_hash($userpass, PASSWORD_DEFAULT);
         $token = bin2hex(random_bytes(50));
         $verified = 0;
-        $note = "yes";
+        $note = "no";
 
         $stmt = $handle->prepare("INSERT INTO new_users (username, email, password, verified, token, notifications) VALUES (:username, :email, :password, :verified, :token, :notifications)");
         $stmt->bindParam(':username', $userdata);

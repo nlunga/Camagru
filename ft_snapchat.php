@@ -41,6 +41,7 @@
   <body>
     <div class="header">
       <a href="index.php"><h1>Camagru</h1></a>
+      <a class="tab" href="ft_snapchat.php?logout=1">Log out</a>
     </div>
     <!-- <form action=""> -->
       <div class="video-wrap">

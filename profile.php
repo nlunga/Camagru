@@ -87,6 +87,7 @@
   <body>
     <div class="header">
       <a href="index.php"><h1>Camagru</h1></a>
+      <a class="tab" href="profile.php?logout=1">Log out</a>
     </div>
     <div class="prof">
       <form class="prof" action="profile.php" method="post" enctype="multipart/form-data">

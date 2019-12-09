@@ -163,6 +163,7 @@
 <body>
     <div class="header">
       <a href="index.php"><h1>Camagru</h1></a>
+      <a class="tab" href="edit.php?logout=1">Log out</a>
     </div>
     <?php
         if (count($error)>0) {

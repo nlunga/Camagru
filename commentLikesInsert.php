@@ -9,7 +9,14 @@
         $stmt->bindParam(':imageId', $imageId);
         $stmt->bindParam(':userId', $userId);
         $stmt->bindParam(':username', $username);
-        $stmt->execute();
+        if($stmt->execute()) {
+          $liker = getUsernamed('new_users', $_SESSION['id']);
+          $liked = getImaged('images', $imageId);
+          $sender = getMail('new_users', getImaged('images', $imageId));
+          if (getNote($liked) == "yes") {
+            sendliked($sender, "You have a new comment", "$liker commented this on your image: $comment");
+          }
+        }
       } catch (PDOException $e) {
           echo "Unable to insert data ".$e->getMessage();
       }
@@ -82,30 +89,31 @@
         $stmt->execute();
         $row_count = $stmt->fetch(PDO::FETCH_ASSOC);
 
+        // $liked = "";
         if (isset($row_count['id'])) {
-            if ($row_count['likes'] == 1) {
-              $like = 0;
-              updateLikes($table_name, $userId, $imageId, $like);
-              $liker = getUsernamed('new_users', $_SESSION['id']);
-              $liked = getImaged('images', $row_count['imageId']);
-              $sender = getMail('new_users', getImaged('images', $row_count['imageId']));
-              if (getNote($liked) == "yes") {
-                sendliked($sender, "Unlike. ", "$liker unliked your image ");
-              }
-            }else {
-              $like = 1;
-              updateLikes($table_name, $userId, $imageId, $like);
-              $liker = getUsernamed('new_users', $_SESSION['id']);
-              getImaged('images', $row_count['imageId']);
-              $sender = getMail('new_users', getImaged('images', $row_count['imageId']));
-              if (getNote($liked) == "yes") {
-                sendliked($sender, "You have a new like", "$liker Likes your image ");
-              }
+          if ($row_count['likes'] == 1) {
+            $like = 0;
+            updateLikes($table_name, $userId, $imageId, $like);
+            $liker = getUsernamed('new_users', $_SESSION['id']);
+            $liked = getImaged('images', $row_count['imageId']);
+            $sender = getMail('new_users', getImaged('images', $row_count['imageId']));
+            if (getNote($liked) === "yes" && $like == 0) {
+              sendliked($sender, "some one has Unlike your image", "$liker unliked your image ");
             }
-        }else {
+          }else if ($row_count['likes'] == 0){
+            $like = 1;
+            updateLikes($table_name, $userId, $imageId, $like);
+            $liker = getUsernamed('new_users', $_SESSION['id']);
+            $liked = getImaged('images', $row_count['imageId']);
+            $sender = getMail('new_users', getImaged('images', $row_count['imageId']));
+            if (getNote($liked) === "yes" && $like == 1) {
+              sendliked($sender, "You have a new like", "$liker Likes your image ");
+            }
+          }
+        } else {
           addLike($table_name, $likes, $imageId, $userId);
         }
-      } catch (PDOException $e) {
+      }catch(PDOException $e) {
         echo "Failed to access the Database ".$e->getMessage();
       }
     }

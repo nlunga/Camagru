@@ -37,6 +37,7 @@
   <body>
     <div class="header">
       <a href="index.php"><h1>Camagru</h1></a>
+      <a class="tab" href="reset_password.php?logout=1">Log out</a>
     </div>
     <div class="error_message">
       <?php

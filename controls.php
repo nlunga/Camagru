@@ -60,7 +60,11 @@
     if (empty($password)) {
       $error['PasswordError'] = "Please enter a password";
     }else {
-      $password = test_user_input($password);
+      if (!preg_match('/(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/', test_user_input($password))){
+        $error['PasswordError'] = "Password is not strong enough, you password must have atleat one uppercase(A-Z) one lowercase(a-z), a number(0-9), and it must have a minimum of 8 characters";
+      }else{
+        $password = test_user_input($password);
+      }
     }
     if ($confPass !== $password) {
       $error['ConfPasswordError'] = "Password does no match";
@@ -207,6 +211,12 @@
 
     if (empty($password) || empty($passwordConf)) {
       $error['PasswordError'] = "Please enter a password";
+    }else {
+      if (!preg_match('(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$', test_user_input($password))){
+        $error['PasswordError'] = "Password is not strong enough, you password must have atleat one uppercase(A-Z) one lowercase(a-z), a number(0-9), and it must have a minimum of 8 characters";
+      }else{
+        $password = test_user_input($password);
+      }
     }
     if ($passwordConf !== $password) {
       $error['ConfPasswordError'] = "Password does no match";
