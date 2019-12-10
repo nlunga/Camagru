@@ -81,71 +81,21 @@
       }
 
     }else if (isset($_POST['post'])){
-      //  print_r($_POST);
-
-      print_r($FILES);
-        //$filename      = time()."_".uniqid();
         $filename      = uniqid();
         $target_file   = $filename;
-      	$target_file2   = "./saveImages/".$filename;
       	$file          = $_FILES["file"];
       	$imageFileType = strtolower(pathinfo($file["tmp_name"], PATHINFO_EXTENSION));
       	$allowed       = array('jpg', 'jpeg', 'gif', 'png', 'tif');
       	$target_file  .= '.'.explode('/', $file['type'])[1];
       	$filename	  .= '.'.explode('/', $file['type'])[1];
-
-        $get = file_get_contents($target_file);
         $new = explode('1./',$target_file);
         $newer = "./saveImages/".$new[0]; // change to $target_file
 
-        echo "\n\n\n this is the temp name".print_r($file['tmp_name'])."\n\n\n\n";
-        echo "\n\n\n this is target ".print_r($target_file);
-        echo "\n\n\n this is target 2".print_r($target_file2);
-        echo "\n\n This is the file type".print_r($file['type'])." \n\n";
+       
       	file_put_contents($newer, file_get_contents($file['tmp_name']));
         move_uploaded_file($file['tmp_name'], $newer);
-        $get = file_get_contents($target_file);
-        $new = explode('1./',$target_file);
-        $newer = "./saveImages/".$new[0];
-        echo "\n\n\n this in ".$newer;
-
-        // insertImage($_SESSION['id'], file_get_contents($file['tmp_name']));
+       
         insertImage($_SESSION['id'], $newer);
-        // if (file_exists('./saveImages/5dde296ddb8e5.png')){
-        //   file_put_contents('temp.txt', "mex");
-        //   insertImage($_SESSION['id'], file_get_contents('5dde296ddb8e5.png'));
-        // }else {
-        //   file_put_contents('temp.txt', "not ex");
-        // }
-      	// if (move_uploaded_file($file['tmp_name'], $target_file))
-        // {
-        //   $sql = "INSERT INTO images(images, userId) VALUES (:images, :userId)";
-        //   $stmt = $handle->prepare($sql);
-        //   $stmt->bindParam(':images', $file['tmp_name']);
-        //   $stmt->bindParam(':userId', $_SESSION['id']);
-        //   $stmt->execute();
-        // }
-        // require_once 'imageInsert.php';
-        // insertImage($_SESSION['id'], $get);
-/*
-      $rename = $_POST["images"];
-      $tmp = explode("base64,", $rename);
-      $mem = base64_decode($tmp[1]);
-
-      $image = imagecreatefromstring($mem);
-      $filename = uniqid();
-      $target = "./saveImages/".$filename.".png";
-      file_put_contents($target, $image);
-      print_r($filename = time()."_".$image);
-      $allowed_image_extension = array("png", "jpg", "jpeg");
-
-      $file_extension = pathinfo($_POST["images"], PATHINFO_EXTENSION);*/
-      /*if (! file_exists($_FILES["images"]["tmp_name"])) {
-        $errorn["imageError"] = "Choose image file to upload.";
-      }else */
-
-
-      // insertImage($_SESSION['id'], $filename);
     }
   }
 ?>

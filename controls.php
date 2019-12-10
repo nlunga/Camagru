@@ -247,5 +247,4 @@
     header('location: reset_password.php');
     exit();
   }
-  require 'proccessForm.php';
 ?>
