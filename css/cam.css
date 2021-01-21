@@ -1,0 +1,155 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: 'Montserrat' , sans-serif;
+    font-size:20px;
+    scroll-behavior:smooth;
+}
+nav ul {
+    list-style-type: none;
+    display: flex;
+    flex-direction: flex-end;
+}
+
+#navBar{
+    font-size:1.25rem;
+    margin:0;
+    padding:10px;
+    display:flex;
+    justify-content: space-between;
+    width:100%;
+    position:fixed;
+    box-sizing: border-box;
+    top:5px;
+    font-weight:300;
+}
+
+#icon {
+    color:#ee680fe3;
+}
+
+li a{   
+    text-decoration: none;
+    color:#8a8a8a;
+}
+.mainNavBar{
+    display:flex;
+    flex: 1 2;
+    justify-content: flex-end;
+    width:30%;
+}
+
+.mainNavBar li {
+    padding:0 20px;
+}
+
+.mainNavBar li a:hover{
+    color:#bebebe;
+}
+
+#callToAction {
+    border:1px solid #999999;
+    background-color:#3b8ebe;
+    border-radius:5px;
+    font-weight:300;
+    padding:5px 20px;
+    color:#ece8e8;
+}
+
+#callToAction:hover {
+    background-color:#449ed1;
+    color:white;
+    cursor: pointer;
+    transition:300ms;
+}
+.toggler{
+    position:absolute;
+    top:.75rem;
+    right:1rem;
+    display:none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    cursor: pointer;
+}
+.toggler .bar{
+    height: 3px;
+    width:100%;
+    background-color: #ee680fe3;
+    border-radius: 10px;
+}
+
+.form{
+    position:absolute;
+    top:25%;
+    /* background-color: green; */
+    width: 100%;
+    height: 200px;
+    text-align: center;
+}
+
+.loginForm > * { /* Apply this style to all child elements */
+    font-size: .9rem;
+}
+
+.userEntry {
+    border: none;
+    border-bottom: 1px solid gray;
+    outline: none;
+    width: 40%;
+}
+
+@media(max-width:920px){
+    .toggler {
+        display: flex;
+
+    }
+    #navBar{
+        flex-direction: column;
+        width:100%;
+    }
+    .mainNavBar{
+        flex-direction: column;
+        justify-content: space-between;
+        top:10px;
+        width:100%;
+        transform:translateY(-10rem);
+        transition:transform .5s;
+        border-radius: 15px;
+        background-color: #e4e3e3;
+        padding:10px 0;
+        display:none;
+    }
+    .mainNavBar li{
+        padding:10px 2px;
+        margin:0 2px;
+        width:98%;
+        height: 100%;
+        text-align: center;
+    }
+    .mainNavBar.open{
+        display:flex;
+        transform:translateY(0);
+    }
+    #callToAction {
+        border:none;
+        background-color:#e4e3e3;
+        color:#449ed1;
+    }
+    #callToAction:hover{
+        background-color:#e4e3e3;
+        color:#73c3f1;
+    }
+
+    .userEntry {
+        border: none;
+        border-bottom: 1px solid gray;
+        width: 65%;
+    }
+
+}
