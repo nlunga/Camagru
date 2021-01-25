@@ -21,7 +21,7 @@
                                     </div>
                                     <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
                                         <div class="text-center text-sm-left mb-2 mb-sm-0">
-                                            <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap"><?php echo $_SESSION['username'];?></h4>
+                                            <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap"><?php echo $user_data = (isset($_SESSION['username'])) ? $_SESSION['username'] : "";?></h4>
                                             <div class="mt-2">
                                                 <button data-toggle="collapse" data-target="#photo" class="btn btn-primary" type="button">
                                                     <i class="fa fa-fw fa-camera"></i>
@@ -52,7 +52,7 @@
 
                                 <div class="tab-content pt-3">
                                     <div class="tab-pane active">
-                                        <form action="" method="post">
+                                        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
                                             <div class="row">
                                                 <div class="col">
                                                     <label>Username</label>
@@ -112,6 +112,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <input class="form-control" name="id" type="hidden" value="<?php echo $user_data = (isset($_SESSION['id'])) ? $_SESSION['id'] : "";?>"></div>
                                             <div class="row">
                                                 <div class="col d-flex justify-content-end">
                                                     <button class="btn btn-primary" name="update" type="submit">Update</button>

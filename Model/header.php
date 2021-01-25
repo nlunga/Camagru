@@ -75,7 +75,7 @@
                 <a href="/Camagru/View/profile.php">Profile</a>
             </li>
             <li>
-                <a id="callToAction" href="#">logout</a>
+                <a id="callToAction" href="/Camagru/index.php?logout=1">logout</a>
             </li>
         </ul>
     </nav>

@@ -122,4 +122,110 @@
         }
 
     }
+
+    function getPassword($table_name, $userId) {
+        global $handle;
+        $sql = "SELECT * FROM $table_name WHERE id='$userId' LIMIT 1";
+        $stmt = $handle->prepare($sql);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row['password'];
+    }
+
+    // Update user data
+    if (isset($_POST['update']) && $_SERVER["REQUEST_METHOD"] == "POST") {
+
+        $id = $_POST['id'];
+
+        echo 'This is POST '.$_POST['id'];
+        echo $id;
+
+        if (!empty($_POST["username"])) {
+            $username = clean_input($_POST["username"]);
+            try {
+                $newsql = "UPDATE users SET username='$username' WHERE id='$id'";
+                $stmt = $handle->prepare($newsql);
+                $stmt->execute();
+                $_SESSION['username'] = $username;
+                header('Location: settings.php');
+            } catch (PDOExeption $e) {
+                echo "Failed to update the Username ".$e->getMessage();
+            }
+        }
+
+        
+        if (!empty($_POST["email"])) {
+            if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+                $error['EmailError'] = "Email address is invalid";
+            } else {
+                $user_email = clean_input($_POST["email"]);
+                
+                try {
+                    $newsql = "UPDATE users SET email='$user_email' WHERE id='$id'";
+                    $stmt = $handle->prepare($newsql);
+                    $stmt->execute();
+                    $_SESSION['email'] = $user_email;
+                } catch (PDOExeption $e) {
+                    echo "Failed to update the Email address ".$e->getMessage();
+                }
+            }
+        }
+
+        if (!empty($_POST['currentPass'])) {
+            if (!preg_match('/(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/', clean_input($_POST["currentPass"]))){
+                $error['PasswordError'] = "Password is not strong enough, you password must have atleat one uppercase(A-Z) one lowercase(a-z), a number(0-9), and it must have a minimum of 8 characters";
+            }else{
+                $passwd = clean_input($_POST["passwd"]);
+            }
+        }
+
+        $old = trim($_POST['currentPass']);
+        $new = trim($_POST['newPass']);
+        $conf = trim($_POST['confPass']);
+        
+        if (!empty($old) || !empty($new) || !empty($conf)) {
+            if (empty($old))
+                $error['PasswordError'] = "Please enter Old password";
+            else if (empty($new))
+                $error['PasswordError'] = "Please enter New password";
+            else if (empty($conf))
+                $error['PasswordError'] = "Please Confirm password";
+            else {
+                $old = clean_input($old);
+                $new = clean_input($new);
+                $conf = clean_input($conf);
+                $newhash = password_hash($new, PASSWORD_DEFAULT);
+                if (password_verify($old, getPassword('users', $id))) {
+                    if ($new !== $conf) {
+                        $error['ConfPasswordError'] = "Password does no match";
+                    } else {
+                        echo getPassword($table, $_SESSION['id']);
+                        try {
+                            $newsql = "UPDATE users SET password='$newhash' WHERE id='$id'";
+                            $stmt = $handle->prepare($newsql);
+                            $stmt->execute();
+                        } catch (PDOExeption $e) {
+                            echo "Failed to update the Password ".$e->getMessage();
+                        }
+                    }
+                }else {
+                    $error['PasswordError'] = "Old Password does not match";
+                    // exit();
+                }
+            }
+
+        }
+    }
+
+    // logout
+    if (isset($_GET['logout'])) {
+        session_destroy();
+        unset($_SESSION['id']);
+        unset($_SESSION['username']);
+        unset($_SESSION['email']);
+        unset($_SESSION['verified']);
+    
+        header('location: login.php');
+        exit();
+      }
 ?>
