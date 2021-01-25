@@ -57,7 +57,7 @@
                                                 <div class="col">
                                                     <label>Username</label>
                                                     <div class="input-group mb-3">
-                                                        <input class="form-control" type="text" name="username" id="username" placeholder="Username">
+                                                        <input class="form-control" type="text" name="username" id="username" placeholder="<?php echo $user_data = (isset($_SESSION['username'])) ? $_SESSION['username'] : "Username";?>">
                                                     </div>
                                                 </div>
                                             </div>
@@ -65,7 +65,7 @@
                                                 <div class="col">
                                                     <label>Email</label>
                                                     <div class="input-group mb-3">
-                                                        <input class="form-control" type="text" name="email" id="email" placeholder="Email">
+                                                        <input class="form-control" type="text" name="email" id="email" placeholder="<?php echo $user_data = (isset($_SESSION['email'])) ? $_SESSION['email'] : "Email";?>">
                                                     </div>
                                                 </div>
                                             </div>
